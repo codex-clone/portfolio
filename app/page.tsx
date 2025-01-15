@@ -189,14 +189,14 @@ export default function HomePage() {
       />
       
       {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 sm:py-32">
         <AnimatedGridPattern
           className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] absolute inset-0"
           numSquares={30}
           maxOpacity={0.15}
           duration={5}
         />
-        <div className="relative z-10 text-center px-4">
+        <div className="relative z-10 text-center max-w-4xl mx-auto">
           <TextEffect
             preset="slide"
             trigger={!isScrolled}
@@ -207,7 +207,7 @@ export default function HomePage() {
           >
             <WordPullUp
               words="PRASHANT CHOUDHARY"
-              className="text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
+              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
             />
           </TextEffect>
           
@@ -219,8 +219,8 @@ export default function HomePage() {
             className="block"
             as="div"
           >
-            <div className="text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center">
-              <span className="mr-2">I am an</span>
+            <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
+              <span>I am an</span>
               <FlipWords 
                 words={roles}
                 className="text-gray-900 font-semibold"
@@ -244,17 +244,17 @@ export default function HomePage() {
             >
               <DockIcon>
                 <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Linkedin className="size-6" />
+                  <Linkedin className="size-5 sm:size-6" />
                 </Link>
               </DockIcon>
               <DockIcon>
                 <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Github className="size-6" />
+                  <Github className="size-5 sm:size-6" />
                 </Link>
               </DockIcon>
               <DockIcon>
                 <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Mail className="size-6" />
+                  <Mail className="size-5 sm:size-6" />
                 </Link>
               </DockIcon>
             </Dock>
@@ -263,7 +263,7 @@ export default function HomePage() {
       </section>
 
       {/* Education Section */}
-      <section id="education">
+      <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
         <Timeline 
           data={educationData} 
           title="Educational Journey"
@@ -276,7 +276,7 @@ export default function HomePage() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience">
+      <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6">
         <Timeline 
           data={experienceData} 
           title="Professional Experience"
@@ -289,18 +289,19 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4 md:px-8 bg-gray-50">
+      <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-gray-900 font-mono">Projects</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center text-gray-900 font-mono">Projects</h2>
           <FeaturesSectionWithHoverEffects />
         </div>
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="max-w-7xl mx-auto py-20 px-4 md:px-8">
-        <GradientHeading size="lg" className="text-center mb-10">
+      <section id="skills" className="max-w-7xl mx-auto py-16 sm:py-20 px-4 sm:px-6">
+        <GradientHeading size="lg" className="text-center mb-8 sm:mb-10 text-3xl sm:text-4xl">
           Technologies
         </GradientHeading>
+        <div className="max-w-5xl mx-auto">
         <LogoCarousel 
           columnCount={3}
           logos={[
@@ -321,10 +322,11 @@ export default function HomePage() {
             { name: "C", id: 15, img: CIcon }
           ]} 
         />
+        </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 md:px-8">
+      <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
         <ContactForm />
       </section>
     </main>
