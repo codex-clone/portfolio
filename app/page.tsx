@@ -11,7 +11,7 @@ import {
   Linkedin, 
   Mail, 
   Phone,
-  Home,
+  HomeIcon,
   GraduationCap,
   Briefcase,
   Code,
@@ -21,6 +21,23 @@ import {
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
 import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
+import { GradientHeading } from "@/components/ui/gradient-heading";
+import { LogoCarousel } from "@/components/ui/logo-carousel";
+import {
+  PythonIcon,
+  TensorFlowIcon,
+  PyTorchIcon,
+  OpenCVIcon,
+  PandasIcon,
+  NumPyIcon,
+  ScikitLearnIcon,
+  FlaskIcon,
+  GitIcon,
+  SQLIcon,
+  PowerBIIcon,
+  HadoopIcon
+} from "@/components/ui/skill-icons";
+import { ContactForm } from "@/components/ui/contact-form";
 
 export default function HomePage() {
   const roles = [
@@ -32,7 +49,7 @@ export default function HomePage() {
   ];
 
   const navItems = [
-    { name: 'Home', url: '#home', icon: Home },
+    { name: 'Home', url: '#home', icon: HomeIcon },
     { name: 'Education', url: '#education', icon: GraduationCap },
     { name: 'Experience', url: '#experience', icon: Briefcase },
     { name: 'Projects', url: '#projects', icon: Code },
@@ -265,70 +282,33 @@ export default function HomePage() {
 
       {/* Skills Section */}
       <section id="skills" className="py-20 px-4 md:px-8">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Technical Skills</h2>
-          <div className="grid gap-8 md:grid-cols-2">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Languages</h3>
-              <p className="text-gray-600">Python, SQL, R, C++</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Frameworks</h3>
-              <p className="text-gray-600">PyTorch, Flask, Pandas, Selenium, BeautifulSoup4, Numpy, Git, Hadoop, Sklearn, Matplotlib, PowerBI</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Technologies</h3>
-              <p className="text-gray-600">TensorFlow, Firebase</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Domains</h3>
-              <p className="text-gray-600">Data Analysis, Data Visualization, Machine Learning, Deep Learning, Computer Vision</p>
-            </div>
-          </div>
+        <div className="max-w-6xl mx-auto">
+          <GradientHeading size="lg" className="text-center mb-12">
+            Technical Skills
+          </GradientHeading>
+          <LogoCarousel
+            columnCount={3}
+            logos={[
+              { name: "Python", id: 1, img: PythonIcon },
+              { name: "TensorFlow", id: 2, img: TensorFlowIcon },
+              { name: "PyTorch", id: 3, img: PyTorchIcon },
+              { name: "OpenCV", id: 4, img: OpenCVIcon },
+              { name: "Pandas", id: 5, img: PandasIcon },
+              { name: "NumPy", id: 6, img: NumPyIcon },
+              { name: "Scikit-Learn", id: 7, img: ScikitLearnIcon },
+              { name: "Flask", id: 8, img: FlaskIcon },
+              { name: "Git", id: 9, img: GitIcon },
+              { name: "SQL", id: 10, img: SQLIcon },
+              { name: "Power BI", id: 11, img: PowerBIIcon },
+              { name: "Hadoop", id: 12, img: HadoopIcon }
+            ]}
+          />
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Contact</h2>
-          <div className="bg-white p-8 rounded-lg shadow-sm">
-            <div className="grid gap-6 md:grid-cols-2">
-              <div className="flex items-center gap-4">
-                <Phone className="text-gray-600" />
-                <div>
-                  <h3 className="font-semibold text-gray-900">Phone</h3>
-                  <p className="text-gray-600">+91 7984669885</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <Mail className="text-gray-600" />
-                <div>
-                  <h3 className="font-semibold text-gray-900">Email</h3>
-                  <p className="text-gray-600">prashantc592114@gmail.com</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <Linkedin className="text-gray-600" />
-                <div>
-                  <h3 className="font-semibold text-gray-900">LinkedIn</h3>
-                  <Link href="https://www.linkedin.com/in/mr-dark-debug" className="text-gray-600 hover:text-gray-900">
-                    mr-dark-debug
-                  </Link>
-                </div>
-              </div>
-              <div className="flex items-center gap-4">
-                <Github className="text-gray-600" />
-                <div>
-                  <h3 className="font-semibold text-gray-900">GitHub</h3>
-                  <Link href="https://github.com/Mr-Dark-Debug" className="text-gray-600 hover:text-gray-900">
-                    Mr-Dark-Debug
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section id="contact" className="py-20 px-4 md:px-8">
+        <ContactForm />
       </section>
     </main>
   );

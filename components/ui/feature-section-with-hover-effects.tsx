@@ -100,7 +100,7 @@ export function FeaturesSectionWithHoverEffects() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative z-10 py-10 max-w-7xl mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 relative z-20 py-10 max-w-7xl mx-auto">
       {features.map((feature, index) => (
         <Feature 
           key={feature.title} 
@@ -121,24 +121,24 @@ const Feature = ({
 }: Feature & { index: number }) => {
   return (
     <div
-      className="group/feature relative flex flex-col border-[0.5px] border-neutral-200 dark:border-neutral-800 py-10"
+      className="group/feature relative flex flex-col border-[0.5px] border-neutral-200 dark:border-neutral-800 py-10 hover:z-30"
     >
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/feature:opacity-100 transition duration-200 pointer-events-none bg-gradient-to-t from-neutral-100 dark:from-neutral-800 to-transparent" />
       
-      <div className="mb-4 relative z-10 px-10 text-neutral-600 dark:text-neutral-400">
+      <div className="mb-4 relative z-[31] px-10 text-neutral-600 dark:text-neutral-400">
         {icon}
       </div>
-      <div className="text-lg font-bold mb-2 relative z-10 px-10">
+      <div className="text-lg font-bold mb-2 relative z-[31] px-10">
         <div className="absolute left-0 inset-y-0 h-6 group-hover/feature:h-8 w-1 rounded-tr-full rounded-br-full bg-neutral-300 dark:bg-neutral-700 group-hover/feature:bg-blue-500 transition-all duration-200 origin-center" />
         <span className="group-hover/feature:translate-x-2 transition duration-200 inline-block text-neutral-800 dark:text-neutral-100">
           {title}
         </span>
       </div>
-      <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-10 px-10 mb-4">
+      <p className="text-sm text-neutral-600 dark:text-neutral-300 max-w-xs relative z-[31] px-10 mb-4">
         {description}
       </p>
       {links && (
-        <div className="flex gap-2 px-10 relative z-10">
+        <div className="flex gap-2 px-10 relative z-[31]">
           {links.repo && (
             <Link
               href={links.repo}
