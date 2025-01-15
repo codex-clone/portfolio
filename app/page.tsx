@@ -33,17 +33,21 @@ import {
   ScikitLearnIcon,
   FlaskIcon,
   GitIcon,
-  SQLIcon,
+  PostgreSQLIcon,
   PowerBIIcon,
-  HadoopIcon
-} from "@/components/ui/skill-icons";
+  FirebaseIcon,
+  NodejsIcon,
+  ReactNativeIcon,
+  CIcon
+} from "@/components/ui/tech-icons";
 import { ContactForm } from "@/components/ui/contact-form";
+import { Dock, DockIcon } from "@/components/ui/dock";
 
 export default function HomePage() {
   const roles = [
     "AI Engineer",
     "ML Engineer",
-    "Data Scientist",
+    "Data Scientist", 
     "Full Stack Developer",
     "Computer Vision Expert"
   ];
@@ -189,8 +193,8 @@ export default function HomePage() {
         <AnimatedGridPattern
           className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] absolute inset-0"
           numSquares={30}
-          maxOpacity={0.3}
-          duration={3}
+          maxOpacity={0.15}
+          duration={5}
         />
         <div className="relative z-10 text-center px-4">
           <TextEffect
@@ -198,6 +202,8 @@ export default function HomePage() {
             trigger={!isScrolled}
             className="block"
             as="div"
+            delay={0.2}
+            duration={0.8}
           >
             <WordPullUp
               words="PRASHANT CHOUDHARY"
@@ -208,7 +214,8 @@ export default function HomePage() {
           <TextEffect
             preset="scale"
             trigger={!isScrolled}
-            delay={0.3}
+            delay={0.5}
+            duration={0.8}
             className="block"
             as="div"
           >
@@ -217,7 +224,7 @@ export default function HomePage() {
               <FlipWords 
                 words={roles}
                 className="text-gray-900 font-semibold"
-                duration={2000}
+                duration={4000}
               />
             </div>
           </TextEffect>
@@ -225,23 +232,32 @@ export default function HomePage() {
           <TextEffect
             preset="fade"
             trigger={!isScrolled}
-            delay={0.6}
+            delay={0.8}
+            duration={1}
             as="div"
           >
-            <div className="flex justify-center gap-4">
-              <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900">
-                <Linkedin size={24} />
-              </Link>
-              <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900">
-                <Github size={24} />
-              </Link>
-              <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900">
-                <Mail size={24} />
-              </Link>
-              <Link href="tel:+917984669885" className="text-gray-600 hover:text-gray-900">
-                <Phone size={24} />
-              </Link>
-            </div>
+            <Dock 
+              direction="middle" 
+              className="bg-white/5 border-gray-200/10" 
+              magnification={35} 
+              distance={80}
+            >
+              <DockIcon>
+                <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                  <Linkedin className="size-6" />
+                </Link>
+              </DockIcon>
+              <DockIcon>
+                <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                  <Github className="size-6" />
+                </Link>
+              </DockIcon>
+              <DockIcon>
+                <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                  <Mail className="size-6" />
+                </Link>
+              </DockIcon>
+            </Dock>
           </TextEffect>
         </div>
       </section>
@@ -281,29 +297,30 @@ export default function HomePage() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto">
-          <GradientHeading size="lg" className="text-center mb-12">
-            Technical Skills
-          </GradientHeading>
-          <LogoCarousel
-            columnCount={3}
-            logos={[
-              { name: "Python", id: 1, img: PythonIcon },
-              { name: "TensorFlow", id: 2, img: TensorFlowIcon },
-              { name: "PyTorch", id: 3, img: PyTorchIcon },
-              { name: "OpenCV", id: 4, img: OpenCVIcon },
-              { name: "Pandas", id: 5, img: PandasIcon },
-              { name: "NumPy", id: 6, img: NumPyIcon },
-              { name: "Scikit-Learn", id: 7, img: ScikitLearnIcon },
-              { name: "Flask", id: 8, img: FlaskIcon },
-              { name: "Git", id: 9, img: GitIcon },
-              { name: "SQL", id: 10, img: SQLIcon },
-              { name: "Power BI", id: 11, img: PowerBIIcon },
-              { name: "Hadoop", id: 12, img: HadoopIcon }
-            ]}
-          />
-        </div>
+      <section id="skills" className="max-w-7xl mx-auto py-20 px-4 md:px-8">
+        <GradientHeading size="lg" className="text-center mb-10">
+          Technologies
+        </GradientHeading>
+        <LogoCarousel 
+          columnCount={3}
+          logos={[
+            { name: "Python", id: 1, img: PythonIcon },
+            { name: "TensorFlow", id: 2, img: TensorFlowIcon },
+            { name: "PyTorch", id: 3, img: PyTorchIcon },
+            { name: "OpenCV", id: 4, img: OpenCVIcon },
+            { name: "Pandas", id: 5, img: PandasIcon },
+            { name: "NumPy", id: 6, img: NumPyIcon },
+            { name: "Scikit Learn", id: 7, img: ScikitLearnIcon },
+            { name: "Flask", id: 8, img: FlaskIcon },
+            { name: "Git", id: 9, img: GitIcon },
+            { name: "PostgreSQL", id: 10, img: PostgreSQLIcon },
+            { name: "Power BI", id: 11, img: PowerBIIcon },
+            { name: "Firebase", id: 12, img: FirebaseIcon },
+            { name: "Node.js", id: 13, img: NodejsIcon },
+            { name: "React Native", id: 14, img: ReactNativeIcon },
+            { name: "C", id: 15, img: CIcon }
+          ]} 
+        />
       </section>
 
       {/* Contact Section */}

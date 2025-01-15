@@ -58,7 +58,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
 
     return (
       <motion.div
-        className="relative h-24 w-24 overflow-hidden md:h-32 md:w-32 flex items-center justify-center"
+        className="relative h-32 w-32 overflow-hidden flex items-center justify-center"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -96,7 +96,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
               },
             }}
           >
-            <CurrentLogo className="w-16 h-16 md:w-20 md:h-20" />
+            <CurrentLogo className="h-24 w-24 object-contain" />
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -128,15 +128,17 @@ export function LogoCarousel({ columnCount = 2, logos }: LogoCarouselProps) {
   }, [logos, columnCount])
 
   return (
-    <div className="flex items-center justify-center gap-8 md:gap-16">
-      {logoSets.map((logos, index) => (
-        <LogoColumn
-          key={index}
-          logos={logos}
-          index={index}
-          currentTime={currentTime}
-        />
-      ))}
+    <div className="w-full flex items-center justify-center">
+      <div className="flex items-center justify-center gap-8">
+        {logoSets.map((logos, index) => (
+          <LogoColumn
+            key={index}
+            logos={logos}
+            index={index}
+            currentTime={currentTime}
+          />
+        ))}
+      </div>
     </div>
   )
 }
