@@ -1,101 +1,335 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
+import { FlipWords } from "@/components/ui/flip-words";
+import { WordPullUp } from "@/components/ui/word-pull-up";
+import { TextEffect } from "@/components/ui/text-effect";
+import { NavBar } from "@/components/ui/tubelight-navbar";
+import { useScrollTrigger } from "@/hooks/use-scroll-trigger";
+import { 
+  Github, 
+  Linkedin, 
+  Mail, 
+  Phone,
+  Home,
+  GraduationCap,
+  Briefcase,
+  Code,
+  Wrench,
+  Send
+} from "lucide-react";
+import Link from "next/link";
+import { Timeline } from "@/components/ui/timeline";
+import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function HomePage() {
+  const roles = [
+    "AI Engineer",
+    "ML Engineer",
+    "Data Scientist",
+    "Full Stack Developer",
+    "Computer Vision Expert"
+  ];
+
+  const navItems = [
+    { name: 'Home', url: '#home', icon: Home },
+    { name: 'Education', url: '#education', icon: GraduationCap },
+    { name: 'Experience', url: '#experience', icon: Briefcase },
+    { name: 'Projects', url: '#projects', icon: Code },
+    { name: 'Skills', url: '#skills', icon: Wrench },
+    { name: 'Contact', url: '#contact', icon: Send }
+  ];
+
+  const isScrolled = useScrollTrigger(100);
+
+  const educationData = [
+    {
+      title: "Bachelor's Degree",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold text-gray-900">Bachelor's Degree in Artificial Intelligence and Data Science</h3>
+          <p className="text-gray-600">Uka Tarsadia University (7th Semester)</p>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      ),
+    },
+    {
+      title: "Grade XII",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold text-gray-900">Grade XII, Science</h3>
+          <p className="text-gray-600">Gyanjyot School</p>
+          <p className="text-gray-500">Physics, Chemistry, Maths</p>
+        </div>
+      ),
+    },
+    {
+      title: "Grade X",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold text-gray-900">Grade X</h3>
+          <p className="text-gray-600">NILKANTH VIDYALAYA</p>
+        </div>
+      ),
+    },
+  ];
+
+  const experienceData = [
+    {
+      title: "2024-25",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">A.I Prompt Engineer Intern - Enacton Technologies</h3>
+            <p className="text-gray-600 mb-4">Dec 2024 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: India (On-site)</p>
+              <p className="text-gray-500">Skills: Artificial Intelligence (AI), Generative AI Studio, Machine Learning Algorithms</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">AI/ML Intern - JBcodeapp</h3>
+            <p className="text-gray-600 mb-4">May 2024 – Jun 2024</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: Greater Surat Area (On-site)</p>
+              <ul className="list-disc list-inside space-y-2">
+                <li>Image-based Face Recognition using face_recognition library</li>
+                <li>Real-time Video Face Recognition with OpenCV</li>
+                <li>Applied AI/ML techniques to enhance web functionalities</li>
+                <li>Collaborated with a dynamic team to deliver high-quality software solutions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2023",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">AI/ML Engineer Intern - ALGOBRAIN AI</h3>
+            <p className="text-gray-600 mb-4">Sep 2023 – Jan 2024</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: Surat, Gujarat, India (On-site)</p>
+              <p className="text-gray-500">Skills: rasa, Dialogflow, TensorFlow, Communication</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Community Member - Generation Nothing</h3>
+            <p className="text-gray-600 mb-4">Jun 2023 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: India (Remote)</p>
+              <p>Joined Generation Nothing student community program organized by Nothing and Yuva</p>
+              <p className="text-gray-500">Skills: Communication</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Software Testing as User - Nothing</h3>
+            <p className="text-gray-600 mb-4">Feb 2023 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: India</p>
+              <p className="text-gray-500">Skills: Testing, Communication, Manual Testing</p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2022",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold text-gray-900">Moderator - Google Developer Students Club</h3>
+          <p className="text-gray-600 mb-4">Jun 2022 – Sep 2023</p>
+          <div className="text-gray-600">
+            <p className="mb-2">Location: Surat, Gujarat, India</p>
+            <p className="text-gray-500">Skills: Communication, Time Management, Team Management</p>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2021",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm">
+          <h3 className="text-xl font-semibold text-gray-900">Freelance Editor - Fiverr</h3>
+          <p className="text-gray-600 mb-4">Feb 2021 – Jul 2023</p>
+          <div className="text-gray-600">
+            <p className="text-gray-500">Skills: Adobe Premiere Pro, Blender, Adobe Lightroom, After Effects, Communication, Adobe Photoshop</p>
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-white">
+      <NavBar 
+        items={navItems}
+      />
+      
+      {/* Hero Section */}
+      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+        <AnimatedGridPattern
+          className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] absolute inset-0"
+          numSquares={30}
+          maxOpacity={0.3}
+          duration={3}
+        />
+        <div className="relative z-10 text-center px-4">
+          <TextEffect
+            preset="slide"
+            trigger={!isScrolled}
+            className="block"
+            as="div"
+          >
+            <WordPullUp
+              words="PRASHANT CHOUDHARY"
+              className="text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
+            />
+          </TextEffect>
+          
+          <TextEffect
+            preset="scale"
+            trigger={!isScrolled}
+            delay={0.3}
+            className="block"
+            as="div"
+          >
+            <div className="text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center">
+              <span className="mr-2">I am an</span>
+              <FlipWords 
+                words={roles}
+                className="text-gray-900 font-semibold"
+                duration={2000}
+              />
+            </div>
+          </TextEffect>
+
+          <TextEffect
+            preset="fade"
+            trigger={!isScrolled}
+            delay={0.6}
+            as="div"
+          >
+            <div className="flex justify-center gap-4">
+              <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900">
+                <Linkedin size={24} />
+              </Link>
+              <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900">
+                <Github size={24} />
+              </Link>
+              <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900">
+                <Mail size={24} />
+              </Link>
+              <Link href="tel:+917984669885" className="text-gray-600 hover:text-gray-900">
+                <Phone size={24} />
+              </Link>
+            </div>
+          </TextEffect>
+        </div>
+      </section>
+
+      {/* Education Section */}
+      <section id="education">
+        <Timeline 
+          data={educationData} 
+          title="Educational Journey"
+          description="My academic path in Artificial Intelligence and Data Science, showcasing my progression from school to university."
+          progressBarColors={{
+            from: "emerald-500",
+            via: "teal-500"
+          }}
+        />
+      </section>
+
+      {/* Experience Section */}
+      <section id="experience">
+        <Timeline 
+          data={experienceData} 
+          title="Professional Experience"
+          description="My journey in the tech industry, working with AI, ML, and software development."
+          progressBarColors={{
+            from: "indigo-500",
+            via: "violet-500"
+          }}
+        />
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="py-20 px-4 md:px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-center text-gray-900 font-mono">Projects</h2>
+          <FeaturesSectionWithHoverEffects />
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section id="skills" className="py-20 px-4 md:px-8">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Technical Skills</h2>
+          <div className="grid gap-8 md:grid-cols-2">
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Languages</h3>
+              <p className="text-gray-600">Python, SQL, R, C++</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Frameworks</h3>
+              <p className="text-gray-600">PyTorch, Flask, Pandas, Selenium, BeautifulSoup4, Numpy, Git, Hadoop, Sklearn, Matplotlib, PowerBI</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Technologies</h3>
+              <p className="text-gray-600">TensorFlow, Firebase</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-sm">
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Domains</h3>
+              <p className="text-gray-600">Data Analysis, Data Visualization, Machine Learning, Deep Learning, Computer Vision</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-20 px-4 md:px-8 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-12 text-center text-gray-900">Contact</h2>
+          <div className="bg-white p-8 rounded-lg shadow-sm">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="flex items-center gap-4">
+                <Phone className="text-gray-600" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">Phone</h3>
+                  <p className="text-gray-600">+91 7984669885</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Mail className="text-gray-600" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">Email</h3>
+                  <p className="text-gray-600">prashantc592114@gmail.com</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Linkedin className="text-gray-600" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">LinkedIn</h3>
+                  <Link href="https://www.linkedin.com/in/mr-dark-debug" className="text-gray-600 hover:text-gray-900">
+                    mr-dark-debug
+                  </Link>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <Github className="text-gray-600" />
+                <div>
+                  <h3 className="font-semibold text-gray-900">GitHub</h3>
+                  <Link href="https://github.com/Mr-Dark-Debug" className="text-gray-600 hover:text-gray-900">
+                    Mr-Dark-Debug
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
