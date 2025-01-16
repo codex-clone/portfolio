@@ -59,7 +59,7 @@ export function ContactForm() {
           Get in Touch
         </h1>
         <p className="mt-4 font-normal text-base text-neutral-600 max-w-lg text-center mx-auto">
-          Have a question or want to work together? I'd love to hear from you. Send me a message and I'll respond as soon as possible.
+          Have a question or want to work together? I&apos;d love to hear from you. Send me a message and I&apos;ll respond as soon as possible.
         </p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
@@ -137,7 +137,7 @@ export function ContactForm() {
 
           <Button
             className="w-full"
-            disabled={isSubmitting}
+            isDisabled={isSubmitting}
           >
             {isSubmitting ? "Sending..." : "Send Message"}
           </Button>

@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         <h2>Thank you for contacting me!</h2>
         <p>Dear ${name},</p>
         <p>I have received your message and will get back to you as soon as possible.</p>
-        <p>Here's a copy of your message:</p>
+        <p>Here&apos;s a copy of your message:</p>
         <p><strong>Subject:</strong> ${subject}</p>
         <p><strong>Message:</strong></p>
         <p>${message}</p>

@@ -57,7 +57,7 @@ export function FeaturesSectionWithHoverEffects() {
     {
       title: "Literna Chat Bot",
       description: 
-        "Python-based Telegram bot powered by Google's Gemini API for intelligent conversations.",
+        "Python-based Telegram bot powered by Google&apos;s Gemini API for intelligent conversations.",
       icon: <IconBrandTelegram className="w-8 h-8" />,
       links: {
         repo: "https://github.com/Mr-Dark-debug/Literna-Bot",
@@ -84,7 +84,7 @@ export function FeaturesSectionWithHoverEffects() {
     {
       title: "PDF Chat App",
       description:
-        "An innovative application using Google's Gemini model for interactive PDF document conversations.",
+        "An innovative application using Google&apos;s Gemini model for interactive PDF document conversations.",
       icon: <IconBrandPython className="w-8 h-8" />,
       links: {
         repo: "https://github.com/Mr-Dark-debug/PDF-chatapp",

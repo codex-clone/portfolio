@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useMediaQuery } from "../../hooks/use-media-query";
 import { cn } from "@/lib/utils";
 import { Card } from "@/components/ui/card";
 
@@ -85,7 +85,7 @@ export function News({ articles }: { articles: NewsArticle[] }) {
             <div className="animate-fade-in absolute inset-0 rounded-lg border border-neutral-300 [animation-delay:2.3s] [animation-direction:reverse] [animation-duration:0.2s]" />
             <AnimatedLogo className="w-1/3" />
             <span className="animate-fade-in text-xs font-medium text-muted-foreground [animation-delay:2.3s] [animation-direction:reverse] [animation-duration:0.2s]">
-              You're all caught up!
+              You&apos;re all caught up!
             </span>
           </div>
         )}
@@ -111,7 +111,7 @@ function NewsCard({
   href?: string;
   active?: boolean;
 }) {
-  const { isMobile } = useMediaQuery();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const ref = React.useRef<HTMLDivElement>(null);
   const drag = React.useRef<{
@@ -125,7 +125,7 @@ function NewsCard({
     startTime: 0,
     maxDelta: 0,
   });
-  const animation = React.useRef<Animation>();
+  const animation = React.useRef<Animation | undefined>(undefined);
   const [dragging, setDragging] = React.useState(false);
 
   const onDragMove = (e: PointerEvent) => {

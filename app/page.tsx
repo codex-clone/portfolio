@@ -10,7 +10,6 @@ import {
   Github, 
   Linkedin, 
   Mail, 
-  Phone,
   HomeIcon,
   GraduationCap,
   Briefcase,
@@ -65,10 +64,10 @@ export default function HomePage() {
 
   const educationData = [
     {
-      title: "Bachelor's Degree",
+      title: "Bachelor&apos;s Degree",
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Bachelor's Degree in Artificial Intelligence and Data Science</h3>
+          <h3 className="text-xl font-semibold text-gray-900">Bachelor&apos;s Degree in Artificial Intelligence and Data Science</h3>
           <p className="text-gray-600">Uka Tarsadia University (7th Semester)</p>
         </div>
       ),
@@ -322,7 +321,7 @@ export default function HomePage() {
             { name: "C", id: 15, img: CIcon }
           ]} 
         />
-        </div>
+    </div>
       </section>
 
       {/* Contact Section */}
