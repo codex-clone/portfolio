@@ -1,28 +1,89 @@
 "use client"
 
-import React, { useState } from "react"
-import { BackgroundBeams } from "./background-beams"
+import { FormEvent, useRef, useState } from "react"
+
+import { cn } from "@/lib/utils"
+
+import { Button } from "./button"
 import { Input } from "./input"
 import { Label } from "./label"
-import { Button } from "./button"
-import { Checkbox } from "./checkbox"
 
-export function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-    subscribe: false,
-  })
+interface ContactFormProps {
+  siteKey: string
+}
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+type FormFields = {
+  name: string
+  email: string
+  subject: string
+  message: string
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus("idle")
+type FieldErrors = Partial<Record<keyof FormFields, string>>
+
+type SubmitState = "idle" | "submitting" | "success" | "error"
+
+const initialValues: FormFields = {
+  name: "",
+  email: "",
+  subject: "",
+  message: "",
+}
+
+export function ContactForm({ siteKey }: ContactFormProps) {
+  const formRef = useRef<HTMLFormElement>(null)
+  const [values, setValues] = useState<FormFields>(initialValues)
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
+  const [status, setStatus] = useState<SubmitState>("idle")
+  const [formMessage, setFormMessage] = useState<string>("")
+
+  const updateField = (field: keyof FormFields, value: string) => {
+    setValues((prev) => ({ ...prev, [field]: value }))
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => ({ ...prev, [field]: undefined }))
+    }
+  }
+
+  const validate = () => {
+    const errors: FieldErrors = {}
+    if (!values.name.trim()) {
+      errors.name = "Your name is required."
+    }
+    if (!values.email.trim()) {
+      errors.email = "An email address is required."
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
+      errors.email = "Use a valid email address."
+    }
+    if (!values.subject.trim()) {
+      errors.subject = "Let me know what this is about."
+    }
+    if (!values.message.trim()) {
+      errors.message = "Share some context so I can help."
+    }
+    setFieldErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setStatus("idle")
+    setFormMessage("")
+
+    if (!validate()) {
+      return
+    }
+
+    const form = formRef.current
+    const captchaField = form?.querySelector<HTMLTextAreaElement>("textarea[name='h-captcha-response']")
+    const hcaptchaToken = captchaField?.value?.trim()
+
+    if (!hcaptchaToken) {
+      setStatus("error")
+      setFormMessage("Please complete the hCaptcha challenge before submitting.")
+      return
+    }
+
+    setStatus("submitting")
 
     try {
       const response = await fetch("/api/contact", {
@@ -30,127 +91,164 @@ export function ContactForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...values,
+          hcaptchaToken,
+          honeypot:
+            (form?.elements.namedItem("company") as HTMLInputElement | null)?.value ?? "",
+        }),
       })
 
-      if (!response.ok) {
-        throw new Error("Failed to send message")
+      if (response.status === 202) {
+        setStatus("success")
+        setFormMessage("Thanks for reaching out. I’ll follow up soon.")
+        setValues(initialValues)
+        if (captchaField?.value) {
+          captchaField.value = ""
+        }
+        if (typeof window !== "undefined" && "hcaptcha" in window) {
+          ;(window as typeof window & { hcaptcha?: { reset: () => void } }).hcaptcha?.reset()
+        }
+      } else {
+        const data = await response.json().catch(() => ({}))
+        setStatus("error")
+        setFormMessage(data.error ?? "Something went wrong. Please try again.")
       }
-
-      setSubmitStatus("success")
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-        subscribe: false,
-      })
     } catch (error) {
-      setSubmitStatus("error")
-    } finally {
-      setIsSubmitting(false)
+      setStatus("error")
+      setFormMessage("Something went wrong. Please try again.")
     }
   }
 
   return (
-    <div className="h-[40rem] w-full rounded-md bg-background relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-2xl mx-auto p-4 relative z-10">
-        <h1 className="text-4xl md:text-7xl font-bold text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600">
-          Get in Touch
-        </h1>
-        <p className="mt-4 font-normal text-base text-neutral-600 max-w-lg text-center mx-auto">
-          Have a question or want to work together? I&apos;d love to hear from you. Send me a message and I&apos;ll respond as soon as possible.
-        </p>
-
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div>
-            <Label htmlFor="name" className="text-neutral-800 font-medium">
-              Name
-            </Label>
-            <Input
-              id="name"
-              type="text"
-              placeholder="John Doe"
-              required
-              className="mt-2"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="email" className="text-neutral-800 font-medium">
-              Email
-            </Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="john@example.com"
-              required
-              className="mt-2"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="subject" className="text-neutral-800 font-medium">
-              Subject
-            </Label>
-            <Input
-              id="subject"
-              type="text"
-              placeholder="Project Inquiry"
-              required
-              className="mt-2"
-              value={formData.subject}
-              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="message" className="text-neutral-800 font-medium">
-              Message
-            </Label>
-            <textarea
-              id="message"
-              required
-              className="mt-2 flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 min-h-[100px]"
-              placeholder="Your message here..."
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-            />
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="subscribe"
-              checked={formData.subscribe}
-              onCheckedChange={(checked) => 
-                setFormData({ ...formData, subscribe: checked as boolean })
-              }
-            />
-            <Label htmlFor="subscribe" className="text-neutral-800 font-medium">
-              Subscribe to newsletter
-            </Label>
-          </div>
-
-          <Button
-            className="w-full"
-            isDisabled={isSubmitting}
-          >
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </Button>
-
-          {submitStatus === "success" && (
-            <p className="text-green-500 text-center">Message sent successfully!</p>
-          )}
-          {submitStatus === "error" && (
-            <p className="text-red-500 text-center">Failed to send message. Please try again.</p>
-          )}
-        </form>
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      className="space-y-6 rounded-2xl border border-slate-200 bg-white p-8 shadow-sm"
+      noValidate
+    >
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div>
+          <Label htmlFor="name" className="text-sm font-medium text-slate-700">
+            Name
+          </Label>
+          <Input
+            id="name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            value={values.name}
+            onChange={(event) => updateField("name", event.target.value)}
+            aria-invalid={fieldErrors.name ? "true" : undefined}
+            aria-describedby={fieldErrors.name ? "contact-name-error" : undefined}
+            className="mt-2"
+            required
+          />
+          {fieldErrors.name ? (
+            <p id="contact-name-error" className="mt-2 text-sm text-red-600">
+              {fieldErrors.name}
+            </p>
+          ) : null}
+        </div>
+        <div>
+          <Label htmlFor="email" className="text-sm font-medium text-slate-700">
+            Email
+          </Label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="email"
+            value={values.email}
+            onChange={(event) => updateField("email", event.target.value)}
+            aria-invalid={fieldErrors.email ? "true" : undefined}
+            aria-describedby={fieldErrors.email ? "contact-email-error" : undefined}
+            className="mt-2"
+            required
+          />
+          {fieldErrors.email ? (
+            <p id="contact-email-error" className="mt-2 text-sm text-red-600">
+              {fieldErrors.email}
+            </p>
+          ) : null}
+        </div>
       </div>
-      <BackgroundBeams />
-    </div>
+      <div>
+        <Label htmlFor="subject" className="text-sm font-medium text-slate-700">
+          Subject
+        </Label>
+        <Input
+          id="subject"
+          name="subject"
+          type="text"
+          autoComplete="off"
+          value={values.subject}
+          onChange={(event) => updateField("subject", event.target.value)}
+          aria-invalid={fieldErrors.subject ? "true" : undefined}
+          aria-describedby={fieldErrors.subject ? "contact-subject-error" : undefined}
+          className="mt-2"
+          required
+        />
+        {fieldErrors.subject ? (
+          <p id="contact-subject-error" className="mt-2 text-sm text-red-600">
+            {fieldErrors.subject}
+          </p>
+        ) : null}
+      </div>
+      <div>
+        <Label htmlFor="message" className="text-sm font-medium text-slate-700">
+          Message
+        </Label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          className={cn(
+            "mt-2 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm",
+            "placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-60"
+          )}
+          placeholder="Share context, constraints, and success measures."
+          value={values.message}
+          onChange={(event) => updateField("message", event.target.value)}
+          aria-invalid={fieldErrors.message ? "true" : undefined}
+          aria-describedby={fieldErrors.message ? "contact-message-error" : undefined}
+          required
+        />
+        {fieldErrors.message ? (
+          <p id="contact-message-error" className="mt-2 text-sm text-red-600">
+            {fieldErrors.message}
+          </p>
+        ) : null}
+      </div>
+      <div className="hidden" aria-hidden="true">
+        <label htmlFor="company">Company</label>
+        <input id="company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+      </div>
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm text-slate-600">
+        <p className="font-medium text-slate-700">Human check</p>
+        <div className="mt-4 flex justify-center">
+          <div className="h-captcha" data-sitekey={siteKey} />
+        </div>
+      </div>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <Button
+          type="submit"
+          size="lg"
+          className="focus-visible:ring-slate-900"
+          isDisabled={status === "submitting"}
+        >
+          {status === "submitting" ? "Sending…" : "Send message"}
+        </Button>
+        <div role="status" aria-live="polite" className="text-sm">
+          {status === "success" ? (
+            <span className="text-emerald-600">{formMessage}</span>
+          ) : null}
+          {status === "error" ? (
+            <span className="text-red-600">{formMessage}</span>
+          ) : null}
+        </div>
+      </div>
+    </form>
   )
-} 
+}

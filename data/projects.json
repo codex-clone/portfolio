@@ -1,0 +1,64 @@
+{
+  "featured": [
+    {
+      "name": "PocketLLM",
+      "slug": "pocketllm",
+      "summary": "Multi-provider LLM chat and orchestration with mobile client and Supabase backend.",
+      "role": "Designer/Engineer",
+      "stack": ["Flutter", "FastAPI", "Supabase", "LangGraph", "pgvector"],
+      "repo": "https://github.com/Mr-Dark-debug?tab=repositories&q=PocketLLM",
+      "demo": null,
+      "metrics": ["Cold start < 1.2s API", "Provider failover graph"]
+    },
+    {
+      "name": "EchoGen.ai",
+      "slug": "echogen",
+      "summary": "Generate multi-speaker podcasts from URLs or text with an evaluated TTS pipeline.",
+      "role": "Engineer",
+      "stack": ["Flutter", "FastAPI", "Queue", "Storage", "TTS"],
+      "repo": "https://github.com/Mr-Dark-debug?tab=repositories&q=EchoGen",
+      "demo": null,
+      "metrics": ["Avg pipeline 38–55s", "Speaker diarization v0.2"]
+    },
+    {
+      "name": "WriteAI",
+      "slug": "writeai",
+      "summary": "React + FastAPI content generator with provider switching and privacy-first defaults.",
+      "role": "Full-stack",
+      "stack": ["React", "FastAPI", "OpenAI-compatible SDK", "Supabase"],
+      "repo": "https://github.com/pschoudhary-dot/WriteAI",
+      "demo": "https://writeai-new.netlify.app/",
+      "metrics": ["UI latency p95 < 120ms", "SSR safe"]
+    },
+    {
+      "name": "PDF-Chat",
+      "slug": "pdf-chat",
+      "summary": "Chat with PDFs using a retrieval pipeline; shipped public Streamlit demo.",
+      "role": "Engineer",
+      "stack": ["Streamlit", "Python", "Embeddings", "RAG"],
+      "repo": "https://github.com/Mr-Dark-debug/PDF-chatapp",
+      "demo": "https://pdf-chatapp.streamlit.app/",
+      "metrics": ["Top-k 4, MRR sanity checks", "Chunking: semantic+rule"]
+    },
+    {
+      "name": "NeoLM",
+      "slug": "neolm",
+      "summary": "NotebookLM-style research workspace with document RAG and persistent memory.",
+      "role": "Engineer",
+      "stack": ["Supabase", "FastAPI", "LangChain", "Auth", "Storage"],
+      "repo": "https://github.com/Mr-Dark-debug/NeoLM",
+      "demo": null,
+      "metrics": ["Session memory pass-rate > 85% on eval set"]
+    },
+    {
+      "name": "AI Project Manager",
+      "slug": "ai-project-manager",
+      "summary": "Agent that breaks work into tasks, maps dependencies, schedules, and monitors risk.",
+      "role": "Engineer",
+      "stack": ["LangGraph", "FastAPI", "Supabase", "CRON"],
+      "repo": "https://github.com/Mr-Dark-debug/AI_Project_Manager",
+      "demo": null,
+      "metrics": ["Critical path calc v0", "Slack-style notifications"]
+    }
+  ]
+}

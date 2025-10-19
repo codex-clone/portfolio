@@ -1,0 +1,32 @@
+{
+  "title": "EchoGen.ai",
+  "problem": "Automate podcast generation from source material while preserving speaker variety and meeting production deadlines.",
+  "approach": "- Normalized article/audio inputs and chunked transcripts for parallel TTS jobs.\n- Queue-backed FastAPI workers scheduled synthesis with backpressure controls.\n- Eval harness scored diarization and intelligibility before publishing.",
+  "architectureSvg": "/assets/diagrams/echogen-arch.svg",
+  "stack": ["FastAPI", "Flutter", "Queue", "Storage", "TTS"],
+  "evaluation": {
+    "method": "Benchmarked diarization accuracy and end-to-end latency on curated podcast scenarios.",
+    "metrics": ["Latency p95", "Word error rate", "Diarization purity"],
+    "tooling": ["Custom harness"]
+  },
+  "results": [
+    "Generated 20-minute episodes in 45s median end-to-end.",
+    "Speaker separation scored 0.87 purity on multi-voice tests.",
+    "Rejected 6% of runs via quality gate, preventing low-fidelity publishes."
+  ],
+  "costs": [
+    "Synthesis compute: $0.63 per 30-minute episode at current providers.",
+    "Queue + storage infra: $48/mo including observability.",
+    "Content moderation services: $9/mo baseline."
+  ],
+  "failure_modes": [
+    "Source URLs without readable content fall back to manual upload.",
+    "TTS vendor outages queue jobs until retry budget expires.",
+    "Highly technical jargon still requires manual review."
+  ],
+  "next": [
+    "Ship adaptive voice selection per segment.",
+    "Add inline editing with regenerated segments only.",
+    "Integrate sponsor read templates with safe defaults."
+  ]
+}

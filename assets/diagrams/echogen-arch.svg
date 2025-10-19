@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">EchoGen.ai architecture</title>
+  <desc id="desc">Pipeline of ingestion, queue workers, evaluation, and Flutter client playback.</desc>
+  <rect x="0" y="0" width="960" height="540" fill="#f8fafc" stroke="#cbd5f5" stroke-width="2" rx="24" />
+  <g font-family="'Segoe UI', sans-serif" font-size="20" fill="#0f172a" stroke="#94a3b8" stroke-width="2">
+    <rect x="80" y="220" width="200" height="120" rx="18" fill="#e2e8f0" />
+    <text x="180" y="265" text-anchor="middle">Content</text>
+    <text x="180" y="295" text-anchor="middle">Ingestion</text>
+    <rect x="320" y="120" width="200" height="120" rx="18" fill="#e2e8f0" />
+    <text x="420" y="165" text-anchor="middle">FastAPI</text>
+    <text x="420" y="195" text-anchor="middle">Gateway</text>
+    <rect x="320" y="300" width="200" height="160" rx="18" fill="#e2e8f0" />
+    <text x="420" y="355" text-anchor="middle">Queue</text>
+    <text x="420" y="385" text-anchor="middle">Workers</text>
+    <rect x="560" y="80" width="300" height="140" rx="18" fill="#e2e8f0" />
+    <text x="710" y="125" text-anchor="middle">TTS Providers</text>
+    <rect x="560" y="260" width="300" height="120" rx="18" fill="#e2e8f0" />
+    <text x="710" y="305" text-anchor="middle">Quality Eval</text>
+    <text x="710" y="335" text-anchor="middle">Harness</text>
+    <rect x="560" y="410" width="300" height="90" rx="18" fill="#e2e8f0" />
+    <text x="710" y="455" text-anchor="middle">Flutter Client</text>
+  </g>
+  <g stroke="#0ea5e9" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M280 280 H320" />
+    <path d="M520 180 H560" />
+    <path d="M520 360 H560" />
+    <path d="M710 200 V260" />
+    <path d="M710 380 V410" />
+  </g>
+  <g fill="#0ea5e9" font-family="'Segoe UI', sans-serif" font-size="16">
+    <text x="300" y="265">JSON/Audio</text>
+    <text x="540" y="165">Job create</text>
+    <text x="540" y="350">Metrics</text>
+    <text x="730" y="240">QC scores</text>
+    <text x="730" y="400">Streams</text>
+  </g>
+</svg>

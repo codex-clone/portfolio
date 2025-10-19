@@ -1,67 +1,90 @@
 import { NextResponse } from "next/server"
-import nodemailer from "nodemailer"
 
-export async function POST(req: Request) {
+interface ContactPayload {
+  name?: string
+  email?: string
+  subject?: string
+  message?: string
+  hcaptchaToken?: string
+  honeypot?: string
+}
+
+interface HCaptchaResponse {
+  success: boolean
+  "error-codes"?: string[]
+}
+
+const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour
+const RATE_LIMIT_MAX = 5
+const rateLimitStore = new Map<string, { count: number; expires: number }>()
+
+const getClientIdentifier = (request: Request) => {
+  const forwarded = request.headers.get("x-forwarded-for")
+  if (forwarded) {
+    return forwarded.split(",")[0]?.trim() ?? "anonymous"
+  }
+  return request.headers.get("x-real-ip") ?? "anonymous"
+}
+
+const isRateLimited = (id: string) => {
+  const now = Date.now()
+  const entry = rateLimitStore.get(id)
+  if (!entry || entry.expires < now) {
+    rateLimitStore.set(id, { count: 1, expires: now + RATE_LIMIT_WINDOW })
+    return false
+  }
+  if (entry.count >= RATE_LIMIT_MAX) {
+    return true
+  }
+  entry.count += 1
+  rateLimitStore.set(id, entry)
+  return false
+}
+
+export async function POST(request: Request) {
   try {
-    const { name, email, subject, message, subscribe } = await req.json()
+    const payload = (await request.json()) as ContactPayload
+    const { name, email, subject, message, hcaptchaToken, honeypot } = payload
 
-    // Create a transporter using SMTP
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+    if (typeof honeypot === "string" && honeypot.trim().length > 0) {
+      return NextResponse.json({ error: "Spam detected." }, { status: 400 })
+    }
+
+    if (!name || !email || !subject || !message || !hcaptchaToken) {
+      return NextResponse.json({ error: "Missing required fields." }, { status: 400 })
+    }
+
+    const clientId = getClientIdentifier(request)
+    if (isRateLimited(clientId)) {
+      return NextResponse.json({ error: "Too many requests. Try again later." }, { status: 429 })
+    }
+
+    const secret = process.env.HCAPTCHA_SECRET
+    if (!secret) {
+      console.error("HCAPTCHA_SECRET is not configured")
+      return NextResponse.json({ error: "Service misconfigured." }, { status: 500 })
+    }
+
+    const verifyResponse = await fetch("https://hcaptcha.com/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
+      body: new URLSearchParams({
+        secret,
+        response: hcaptchaToken,
+        remoteip: clientId,
+      }).toString(),
     })
 
-    // Email content for you
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: "prashantc592114@gmail.com", // Your email address
-      subject: `New Contact Form Submission: ${subject}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-        <p><strong>Subscribed to Newsletter:</strong> ${subscribe ? "Yes" : "No"}</p>
-      `,
+    const verifyData = (await verifyResponse.json()) as HCaptchaResponse
+    if (!verifyData.success) {
+      return NextResponse.json({ error: "Captcha validation failed." }, { status: 400 })
     }
 
-    // Auto-reply email content for the sender
-    const autoReplyOptions = {
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: "Thank you for your message",
-      html: `
-        <h2>Thank you for contacting me!</h2>
-        <p>Dear ${name},</p>
-        <p>I have received your message and will get back to you as soon as possible.</p>
-        <p>Here&apos;s a copy of your message:</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message}</p>
-        <br>
-        <p>Best regards,</p>
-        <p>Prashant Choudhary</p>
-      `,
-    }
-
-    // Send both emails
-    await transporter.sendMail(mailOptions)
-    await transporter.sendMail(autoReplyOptions)
-
-    return NextResponse.json(
-      { message: "Email sent successfully" },
-      { status: 200 }
-    )
+    return NextResponse.json({ message: "Accepted" }, { status: 202 })
   } catch (error) {
-    console.error("Failed to send email:", error)
-    return NextResponse.json(
-      { error: "Failed to send email" },
-      { status: 500 }
-    )
+    console.error("Contact form error", error)
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 })
   }
-} 
+}

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">WriteAI architecture</title>
+  <desc id="desc">SSR web client interacts with FastAPI adapters, provider gateways, and evaluation services.</desc>
+  <rect x="0" y="0" width="960" height="540" fill="#f8fafc" stroke="#cbd5f5" stroke-width="2" rx="24" />
+  <g font-family="'Segoe UI', sans-serif" font-size="20" fill="#0f172a" stroke="#94a3b8" stroke-width="2">
+    <rect x="80" y="120" width="240" height="140" rx="18" fill="#e2e8f0" />
+    <text x="200" y="165" text-anchor="middle">React SSR Shell</text>
+    <text x="200" y="195" text-anchor="middle">Next.js</text>
+    <rect x="80" y="300" width="240" height="140" rx="18" fill="#e2e8f0" />
+    <text x="200" y="345" text-anchor="middle">Client Side</text>
+    <text x="200" y="375" text-anchor="middle">Streaming UI</text>
+    <rect x="360" y="220" width="220" height="120" rx="18" fill="#e2e8f0" />
+    <text x="470" y="265" text-anchor="middle">FastAPI</text>
+    <text x="470" y="295" text-anchor="middle">Adapters</text>
+    <rect x="620" y="120" width="260" height="120" rx="18" fill="#e2e8f0" />
+    <text x="750" y="165" text-anchor="middle">Provider APIs</text>
+    <rect x="620" y="280" width="260" height="120" rx="18" fill="#e2e8f0" />
+    <text x="750" y="325" text-anchor="middle">Supabase</text>
+    <text x="750" y="355" text-anchor="middle">Auth & Storage</text>
+    <rect x="620" y="420" width="260" height="90" rx="18" fill="#e2e8f0" />
+    <text x="750" y="465" text-anchor="middle">Eval Harness</text>
+  </g>
+  <g stroke="#f97316" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M320 190 Q360 230 360 280" />
+    <path d="M300 370 H360" />
+    <path d="M580 280 H620" />
+    <path d="M580 340 H620" />
+    <path d="M750 400 V420" />
+  </g>
+  <g fill="#f97316" font-family="'Segoe UI', sans-serif" font-size="16">
+    <text x="330" y="230">SSR data</text>
+    <text x="320" y="360">Streaming events</text>
+    <text x="600" y="265">Redacted prompts</text>
+    <text x="600" y="325">Session tokens</text>
+    <text x="770" y="410">Quality metrics</text>
+  </g>
+</svg>

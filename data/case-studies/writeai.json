@@ -1,0 +1,32 @@
+{
+  "title": "WriteAI",
+  "problem": "Ship a privacy-first content generation tool with provider switching, SSR-safe UI, and measurable output quality.",
+  "approach": "- Split React SSR shell from streaming FastAPI completion endpoints.\n- Implemented provider adapters with rate limiting and redaction policies.\n- Added eval harness scoring tone, length, and toxicity before release.",
+  "architectureSvg": "/assets/diagrams/writeai-arch.svg",
+  "stack": ["React", "FastAPI", "Supabase", "OpenAI-compatible SDK"],
+  "evaluation": {
+    "method": "Ran nightly regression prompts to track latency, quality scores, and provider drift.",
+    "metrics": ["Latency p95", "Toxicity flags", "Revision rate"],
+    "tooling": ["LangFuse", "Custom harness"]
+  },
+  "results": [
+    "SSR routes stayed <120ms TTFB under load testing.",
+    "Provider swap cut blocked prompts by 42% week-over-week.",
+    "Privacy filters removed 99% of PII in sampled generations."
+  ],
+  "costs": [
+    "Primary provider usage: $0.11 per 1k tokens including eval budget.",
+    "Supabase auth + storage: $22/mo with generous free tier credits.",
+    "Monitoring stack: $15/mo leveraging shared LangFuse instance."
+  ],
+  "failure_modes": [
+    "Fallback provider lacks certain tone presets; flagged for manual edits.",
+    "Long-form outputs can exceed UI diffing thresholds requiring pagination.",
+    "If Supabase RLS misconfigured, editor access locks until redeploy."
+  ],
+  "next": [
+    "Introduce writer briefs with retrieval-augmented context.",
+    "Expose evaluation dashboard to marketing leads.",
+    "Add on-device drafting companion for mobile reviewers."
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "Foundations": ["Python", "SQL", "Data Modeling", "Testing"],
+  "Backend": ["FastAPI", "Node/Express", "Supabase", "Auth/RLS", "Queues/CRON"],
+  "Agentic": ["LangGraph", "LangChain", "CrewAI", "PromptOps"],
+  "Vector/Retrieval": ["pgvector", "Qdrant", "Chroma", "Hybrid search"],
+  "Eval/Obs": ["LangFuse", "Custom harness", "Tracing", "Metrics"],
+  "Mobile/Edge": ["Flutter", "On-device LLM exploration"],
+  "Cloud/ML": ["Vertex AI", "SageMaker", "MLflow", "Docker"]
+}

@@ -1,0 +1,32 @@
+{
+  "title": "PDF-Chat",
+  "problem": "Allow teams to interrogate PDF knowledge bases with transparent retrieval quality and lightweight deployment.",
+  "approach": "- Pre-processed PDFs into semantic+rule chunks stored in pgvector.\n- Streamlit front-end consumed FastAPI retrieval endpoints with guardrails.\n- Continuous eval sampled queries to monitor MRR and answerability.",
+  "architectureSvg": "/assets/diagrams/pdf-chat-arch.svg",
+  "stack": ["Streamlit", "FastAPI", "Embeddings", "pgvector"],
+  "evaluation": {
+    "method": "Tracked retrieval accuracy against curated Q/A pairs and monitored latency under burst load.",
+    "metrics": ["MRR", "Latency p95", "Answer coverage"],
+    "tooling": ["Custom harness", "LangFuse"]
+  },
+  "results": [
+    "MRR held at 0.78 across 120 regression queries.",
+    "Latency p95 stayed below 1.4s with streaming responses.",
+    "Public demo served 2.3k sessions without manual restarts."
+  ],
+  "costs": [
+    "Hosted Streamlit: $0 using community tier during beta.",
+    "Supabase vector store: $18/mo at 5GB embeddings.",
+    "Open-source embeddings kept inference below $0.02 per 1k tokens."
+  ],
+  "failure_modes": [
+    "Tables with image-only data require manual transcription.",
+    "Large PDFs (>150MB) need offline preprocessing before upload.",
+    "Answers degrade if documents lack headings for rule-based chunking."
+  ],
+  "next": [
+    "Add RAG triage view showing retrieved spans inline.",
+    "Automate quality alerts on sudden MRR drops.",
+    "Offer managed deployment template for teams."
+  ]
+}

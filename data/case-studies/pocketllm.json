@@ -1,0 +1,32 @@
+{
+  "title": "PocketLLM",
+  "problem": "Deliver dependable chat orchestration on mobile with strict latency and cost controls across multiple LLM providers.",
+  "approach": "- Unified orchestrator service selected providers via LangGraph guardrails.\n- Supabase Edge Functions brokered auth, telemetry, and persisted sessions.\n- Device client streamed tokens with offline-safe queueing for retry.",
+  "architectureSvg": "/assets/diagrams/pocketllm-arch.svg",
+  "stack": ["Flutter", "LangGraph", "FastAPI", "Supabase", "pgvector"],
+  "evaluation": {
+    "method": "Measured latency, failover success, and embedding quality on scripted evaluation chats.",
+    "metrics": ["Latency p95", "Failover success %", "Embedding recall"],
+    "tooling": ["LangFuse", "Custom harness"]
+  },
+  "results": [
+    "Cold-start API responses in 1.1s p95 across supported providers.",
+    "Provider failover succeeded on 98% of injected outages.",
+    "Session recall improved 14% after pgvector tuning."
+  ],
+  "costs": [
+    "Baseline orchestration: $0.08 per 1k tokens across providers.",
+    "Supabase storage + auth: <$35/mo at 5k active users.",
+    "Telemetry pipeline: $12/mo with managed LangFuse."
+  ],
+  "failure_modes": [
+    "Provider outages beyond configured graph depth fall back to cached responses.",
+    "Mobile offline queues can exhaust storage if retries exceed 50MB.",
+    "Long conversations require manual archive to control Supabase row limits."
+  ],
+  "next": [
+    "Add local on-device fallback for short answers.",
+    "Expose evaluation dashboards to customer success.",
+    "Expand guardrails to include toxicity classifiers."
+  ]
+}

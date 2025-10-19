@@ -1,0 +1,45 @@
+[
+  {
+    "role": "Junior AI/ML Backend Engineer",
+    "org": "EnactOn Technologies",
+    "location": "Surat, IN",
+    "start": "Nov 2024",
+    "end": "Present",
+    "highlights": [
+      "Designed and shipped agentic workflows with LangGraph; added eval harness for prompt/route variants.",
+      "Built RAG services with pgvector/Chroma and Supabase auth; hardened RLS and observability.",
+      "Reduced p95 latency by ~30% via batching, caching, and response streaming."
+    ]
+  },
+  {
+    "role": "AI Prompt Engineer Intern",
+    "org": "EnactOn Technologies",
+    "location": "Remote/Surat",
+    "start": "Jun 2024",
+    "end": "Nov 2024",
+    "highlights": [
+      "Maintained prompt libraries, safety filters, and test sets; shipped provider-switching adapters.",
+      "Helped productize WriteAI features with FastAPI endpoints and SSR-safe UI states."
+    ]
+  },
+  {
+    "role": "AI/ML Intern",
+    "org": "JBCodeApp",
+    "location": "Remote",
+    "start": "2023",
+    "end": "2023",
+    "highlights": [
+      "Prototyped classification and Streamlit dashboards for internal tooling."
+    ]
+  },
+  {
+    "role": "AI/ML Intern",
+    "org": "AlgobrainAI",
+    "location": "Remote",
+    "start": "2023",
+    "end": "2023",
+    "highlights": [
+      "Implemented computer vision baselines; improved data pre-processing throughput."
+    ]
+  }
+]
