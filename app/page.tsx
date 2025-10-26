@@ -4,18 +4,15 @@ import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { FlipWords } from "@/components/ui/flip-words";
 import { WordPullUp } from "@/components/ui/word-pull-up";
 import { TextEffect } from "@/components/ui/text-effect";
-import { NavBar } from "@/components/ui/tubelight-navbar";
+import { MenuVertical } from "@/components/ui/menu-vertical";
 import { useScrollTrigger } from "@/hooks/use-scroll-trigger";
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  HomeIcon,
-  GraduationCap,
-  Briefcase,
-  Code,
-  Wrench,
-  Send
+import { useMediaQuery } from "@/hooks/use-media-query";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  Menu,
+  X
 } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
@@ -42,6 +39,8 @@ import {
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { ChatWidget } from "@/components/ui/chat-widget";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const roles = [
@@ -53,15 +52,36 @@ export default function HomePage() {
   ];
 
   const navItems = [
-    { name: 'Home', url: '#home', icon: HomeIcon },
-    { name: 'Education', url: '#education', icon: GraduationCap },
-    { name: 'Experience', url: '#experience', icon: Briefcase },
-    { name: 'Projects', url: '#projects', icon: Code },
-    { name: 'Skills', url: '#skills', icon: Wrench },
-    { name: 'Contact', url: '#contact', icon: Send }
+    { label: "Home", href: "#home" },
+    { label: "Education", href: "#education" },
+    { label: "Experience", href: "#experience" },
+    { label: "Projects", href: "#projects" },
+    { label: "Skills", href: "#skills" },
+    { label: "Contact", href: "#contact" }
   ];
 
   const isScrolled = useScrollTrigger(100);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    if (isDesktop) {
+      setIsSidebarOpen(true);
+    } else {
+      setIsSidebarOpen(false);
+    }
+  }, [isDesktop]);
+
+  const toggleSidebar = () => {
+    if (isDesktop) return;
+    setIsSidebarOpen((prev) => !prev);
+  };
+
+  const handleItemClick = () => {
+    if (!isDesktop) {
+      setIsSidebarOpen(false);
+    }
+  };
 
   const educationData = [
     {
@@ -183,11 +203,49 @@ export default function HomePage() {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
-      <NavBar
-        items={navItems}
-      />
-      
+    <>
+      <button
+        type="button"
+        onClick={toggleSidebar}
+        className="fixed left-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-lg backdrop-blur transition hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-50 lg:hidden"
+        aria-expanded={isSidebarOpen}
+        aria-controls="portfolio-sidebar"
+      >
+        {isSidebarOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+        Menu
+      </button>
+
+      <AnimatePresence>
+        {(isSidebarOpen || isDesktop) && (
+          <>
+            {!isDesktop && (
+              <motion.div
+                key="sidebar-backdrop"
+                className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={handleItemClick}
+              />
+            )}
+            <motion.aside
+              key="sidebar"
+              id="portfolio-sidebar"
+              className="fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-zinc-200 bg-white/95 pb-10 pt-16 shadow-xl backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/95"
+              initial={{ x: isDesktop ? -40 : -320, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -320, opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              <MenuVertical menuItems={navItems} color="#2563eb" skew={-8} onItemClick={handleItemClick} />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
+      <main className="min-h-screen bg-white lg:pl-72">
+
       {/* Hero Section */}
       <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 sm:py-32">
         <AnimatedGridPattern
@@ -302,27 +360,27 @@ export default function HomePage() {
           Technologies
         </GradientHeading>
         <div className="max-w-5xl mx-auto">
-        <LogoCarousel 
-          columnCount={3}
-          logos={[
-            { name: "Python", id: 1, img: PythonIcon },
-            { name: "TensorFlow", id: 2, img: TensorFlowIcon },
-            { name: "PyTorch", id: 3, img: PyTorchIcon },
-            { name: "OpenCV", id: 4, img: OpenCVIcon },
-            { name: "Pandas", id: 5, img: PandasIcon },
-            { name: "NumPy", id: 6, img: NumPyIcon },
-            { name: "Scikit Learn", id: 7, img: ScikitLearnIcon },
-            { name: "Flask", id: 8, img: FlaskIcon },
-            { name: "Git", id: 9, img: GitIcon },
-            { name: "PostgreSQL", id: 10, img: PostgreSQLIcon },
-            { name: "Power BI", id: 11, img: PowerBIIcon },
-            { name: "Firebase", id: 12, img: FirebaseIcon },
-            { name: "Node.js", id: 13, img: NodejsIcon },
-            { name: "React Native", id: 14, img: ReactNativeIcon },
-            { name: "C", id: 15, img: CIcon }
-          ]} 
-        />
-    </div>
+          <LogoCarousel
+            columnCount={3}
+            logos={[
+              { name: "Python", id: 1, img: PythonIcon },
+              { name: "TensorFlow", id: 2, img: TensorFlowIcon },
+              { name: "PyTorch", id: 3, img: PyTorchIcon },
+              { name: "OpenCV", id: 4, img: OpenCVIcon },
+              { name: "Pandas", id: 5, img: PandasIcon },
+              { name: "NumPy", id: 6, img: NumPyIcon },
+              { name: "Scikit Learn", id: 7, img: ScikitLearnIcon },
+              { name: "Flask", id: 8, img: FlaskIcon },
+              { name: "Git", id: 9, img: GitIcon },
+              { name: "PostgreSQL", id: 10, img: PostgreSQLIcon },
+              { name: "Power BI", id: 11, img: PowerBIIcon },
+              { name: "Firebase", id: 12, img: FirebaseIcon },
+              { name: "Node.js", id: 13, img: NodejsIcon },
+              { name: "React Native", id: 14, img: ReactNativeIcon },
+              { name: "C", id: 15, img: CIcon }
+            ]}
+          />
+        </div>
       </section>
 
       {/* Contact Section */}
@@ -332,5 +390,6 @@ export default function HomePage() {
 
       <ChatWidget />
     </main>
+    </>
   );
 }
