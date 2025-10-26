@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/tech-icons";
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
+import { ChatWidget } from "@/components/ui/chat-widget";
 
 export default function HomePage() {
   const roles = [
@@ -183,7 +184,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-white">
-      <NavBar 
+      <NavBar
         items={navItems}
       />
       
@@ -328,6 +329,8 @@ export default function HomePage() {
       <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
         <ContactForm />
       </section>
+
+      <ChatWidget />
     </main>
   );
 }
