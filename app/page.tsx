@@ -7,6 +7,7 @@ import { TextEffect } from "@/components/ui/text-effect";
 import { MenuVertical } from "@/components/ui/menu-vertical";
 import { useScrollTrigger } from "@/hooks/use-scroll-trigger";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { cn } from "@/lib/utils";
 import {
   Github,
   Linkedin,
@@ -57,7 +58,8 @@ export default function HomePage() {
     { label: "Experience", href: "#experience" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
-    { label: "Contact", href: "#contact" }
+    { label: "Contact", href: "#contact" },
+    { label: "Generative Answers", href: "/ai" }
   ];
 
   const isScrolled = useScrollTrigger(100);
@@ -73,7 +75,6 @@ export default function HomePage() {
   }, [isDesktop]);
 
   const toggleSidebar = () => {
-    if (isDesktop) return;
     setIsSidebarOpen((prev) => !prev);
   };
 
@@ -207,7 +208,7 @@ export default function HomePage() {
       <button
         type="button"
         onClick={toggleSidebar}
-        className="fixed left-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-lg backdrop-blur transition hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-50 lg:hidden"
+        className="fixed left-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-lg backdrop-blur transition hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-50"
         aria-expanded={isSidebarOpen}
         aria-controls="portfolio-sidebar"
       >
@@ -216,7 +217,7 @@ export default function HomePage() {
       </button>
 
       <AnimatePresence>
-        {(isSidebarOpen || isDesktop) && (
+        {isSidebarOpen && (
           <>
             {!isDesktop && (
               <motion.div
@@ -244,7 +245,12 @@ export default function HomePage() {
         )}
       </AnimatePresence>
 
-      <main className="min-h-screen bg-white lg:pl-72">
+      <main
+        className={cn(
+          "min-h-screen bg-white transition-[padding] duration-300",
+          isSidebarOpen ? "lg:pl-72" : "lg:pl-0"
+        )}
+      >
 
       {/* Hero Section */}
       <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 sm:py-32">
