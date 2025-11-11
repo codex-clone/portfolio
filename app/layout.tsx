@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Prashant Choudhary - AI/ML Engineer & Full Stack Developer",
-  description: "Portfolio of Prashant Choudhary, an AI/ML Engineer and Full Stack Developer with expertise in Python, Machine Learning, and Web Development.",
+  title: "Prashant Choudhary - AI/ML Engineer & Full-Stack Developer",
+  description: "AI/ML engineer building PocketLLM, EchoGen.ai, hiVPN, and more. Flutter, FastAPI, Supabase, LangGraph, Next.js. Open-source and production-focused.",
 };
 
 export default function RootLayout({

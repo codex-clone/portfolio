@@ -48,7 +48,7 @@ export default function HomePage() {
   const roles = [
     "AI Engineer",
     "ML Engineer",
-    "Data Scientist", 
+    "Data Scientist",
     "Full Stack Developer",
     "Computer Vision Expert"
   ];
@@ -286,7 +286,7 @@ export default function HomePage() {
           >
             <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
               <span>I am an</span>
-              <FlipWords 
+              <FlipWords
                 words={roles}
                 className="text-gray-900 font-semibold"
                 duration={4000}
