@@ -40,6 +40,7 @@ import {
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { ChatWidget } from "@/components/ui/chat-widget";
+import { ChatSidebar } from "@/components/ui/chat-sidebar";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -395,6 +396,7 @@ export default function HomePage() {
       </section>
 
       <ChatWidget />
+      <ChatSidebar />
     </main>
     </>
   );

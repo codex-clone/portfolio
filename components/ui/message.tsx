@@ -14,9 +14,8 @@ export type MessageProps = HTMLAttributes<HTMLDivElement> & {
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
-      "group flex w-full items-end justify-end gap-2 py-4",
-      from === "user" ? "is-user" : "is-assistant flex-row-reverse justify-end",
-      "[&>div]:max-w-[80%]",
+      "group flex w-full items-end gap-3 py-4",
+      from === "user" ? "is-user justify-end" : "is-assistant justify-start",
       className,
     )}
     {...props}
@@ -32,14 +31,14 @@ export const MessageContent = ({
 }: MessageContentProps) => (
   <div
     className={cn(
-      "flex flex-col gap-2 rounded-lg px-4 py-3 text-sm text-foreground",
-      "group-[.is-user]:bg-primary group-[.is-user]:text-primary-foreground",
-      "group-[.is-assistant]:bg-secondary group-[.is-assistant]:text-foreground",
+      "max-w-xs rounded-2xl px-4 py-3 text-sm leading-relaxed",
+      "group-[.is-user]:bg-slate-900 group-[.is-user]:text-white",
+      "group-[.is-assistant]:bg-slate-100 group-[.is-assistant]:text-slate-900",
       className,
     )}
     {...props}
   >
-    <div className="is-user:dark">{children}</div>
+    {children}
   </div>
 )
 
@@ -55,7 +54,7 @@ export const MessageAvatar = ({
   ...props
 }: MessageAvatarProps) => (
   <Avatar
-    className={cn("size-8 ring ring-1 ring-border", className)}
+    className={cn("size-8 flex-shrink-0", className)}
     {...props}
   >
     <AvatarImage alt="" className="mt-0 mb-0" src={src} />
