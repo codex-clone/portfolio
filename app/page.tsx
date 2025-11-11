@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
-import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
+import { ProjectsSection } from "@/components/ui/projects-section";
 import { GradientHeading } from "@/components/ui/gradient-heading";
 import { LogoCarousel } from "@/components/ui/logo-carousel";
 import {
@@ -87,10 +87,10 @@ export default function HomePage() {
 
   const educationData = [
     {
-      title: "Bachelor&apos;s Degree",
+      title: "Bachelor's Degree",
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Bachelor&apos;s Degree in Artificial Intelligence and Data Science</h3>
+          <h3 className="text-xl font-semibold text-gray-900">Bachelor's Degree in Artificial Intelligence and Data Science</h3>
           <p className="text-gray-600">Uka Tarsadia University (7th Semester)</p>
         </div>
       ),
@@ -354,12 +354,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center text-gray-900 font-mono">Projects</h2>
-          <FeaturesSectionWithHoverEffects />
-        </div>
-      </section>
+      <ProjectsSection />
 
       {/* Skills Section */}
       <section id="skills" className="max-w-7xl mx-auto py-16 sm:py-20 px-4 sm:px-6">
