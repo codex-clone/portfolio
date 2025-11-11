@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
-import { FlipWords } from "@/components/ui/flip-words";
 import { WordPullUp } from "@/components/ui/word-pull-up";
 import { TextEffect } from "@/components/ui/text-effect";
 import { MenuVertical } from "@/components/ui/menu-vertical";
@@ -17,26 +16,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
-import { FeaturesSectionWithHoverEffects } from "@/components/ui/feature-section-with-hover-effects";
+import { ProjectsSection } from "@/components/ui/projects-section";
 import { GradientHeading } from "@/components/ui/gradient-heading";
-import { LogoCarousel } from "@/components/ui/logo-carousel";
-import {
-  PythonIcon,
-  TensorFlowIcon,
-  PyTorchIcon,
-  OpenCVIcon,
-  PandasIcon,
-  NumPyIcon,
-  ScikitLearnIcon,
-  FlaskIcon,
-  GitIcon,
-  PostgreSQLIcon,
-  PowerBIIcon,
-  FirebaseIcon,
-  NodejsIcon,
-  ReactNativeIcon,
-  CIcon
-} from "@/components/ui/tech-icons";
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { ChatWidget } from "@/components/ui/chat-widget";
@@ -44,16 +25,9 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export default function HomePage() {
-  const roles = [
-    "AI Engineer",
-    "ML Engineer",
-    "Data Scientist", 
-    "Full Stack Developer",
-    "Computer Vision Expert"
-  ];
-
   const navItems = [
     { label: "Home", href: "#home" },
+    { label: "About", href: "#about" },
     { label: "Education", href: "#education" },
     { label: "Experience", href: "#experience" },
     { label: "Projects", href: "#projects" },
@@ -86,30 +60,12 @@ export default function HomePage() {
 
   const educationData = [
     {
-      title: "Bachelor&apos;s Degree",
+      title: "2021-2025",
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Bachelor&apos;s Degree in Artificial Intelligence and Data Science</h3>
-          <p className="text-gray-600">Uka Tarsadia University (7th Semester)</p>
-        </div>
-      ),
-    },
-    {
-      title: "Grade XII",
-      content: (
-        <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Grade XII, Science</h3>
-          <p className="text-gray-600">Gyanjyot School</p>
-          <p className="text-gray-500">Physics, Chemistry, Maths</p>
-        </div>
-      ),
-    },
-    {
-      title: "Grade X",
-      content: (
-        <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Grade X</h3>
-          <p className="text-gray-600">NILKANTH VIDYALAYA</p>
+          <h3 className="text-xl font-semibold text-gray-900">B.Tech, Artificial Intelligence & Data Science</h3>
+          <p className="text-gray-600">UTU (CGPIT)</p>
+          <p className="text-gray-500">CGPA ≈ 7.26</p>
         </div>
       ),
     },
@@ -117,90 +73,50 @@ export default function HomePage() {
 
   const experienceData = [
     {
-      title: "2024-25",
+      title: "2024-Present",
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
           <div>
-            <h3 className="text-xl font-semibold text-gray-900">A.I Prompt Engineer Intern - Enacton Technologies</h3>
+            <h3 className="text-xl font-semibold text-gray-900">AI Prompt Engineer → Jr. AI/ML Engineer - EnactOn Technologies</h3>
             <p className="text-gray-600 mb-4">Dec 2024 – Present</p>
             <div className="text-gray-600">
-              <p className="mb-2">Location: India (On-site)</p>
-              <p className="text-gray-500">Skills: Artificial Intelligence (AI), Generative AI Studio, Machine Learning Algorithms</p>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">AI/ML Intern - JBcodeapp</h3>
-            <p className="text-gray-600 mb-4">May 2024 – Jun 2024</p>
-            <div className="text-gray-600">
-              <p className="mb-2">Location: Greater Surat Area (On-site)</p>
-              <ul className="list-disc list-inside space-y-2">
-                <li>Image-based Face Recognition using face_recognition library</li>
-                <li>Real-time Video Face Recognition with OpenCV</li>
-                <li>Applied AI/ML techniques to enhance web functionalities</li>
-                <li>Collaborated with a dynamic team to deliver high-quality software solutions</li>
-              </ul>
+              <p className="mb-2">Location: Surat, India</p>
+              <p className="text-gray-500">Built production LLM agents for content generation, RAG, and workflow automation (LangGraph, FastAPI, Supabase).</p>
             </div>
           </div>
         </div>
       ),
     },
     {
-      title: "2023",
-      content: (
-        <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">AI/ML Engineer Intern - ALGOBRAIN AI</h3>
-            <p className="text-gray-600 mb-4">Sep 2023 – Jan 2024</p>
-            <div className="text-gray-600">
-              <p className="mb-2">Location: Surat, Gujarat, India (On-site)</p>
-              <p className="text-gray-500">Skills: rasa, Dialogflow, TensorFlow, Communication</p>
+        title: "2024",
+        content: (
+            <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+                <div>
+                    <h3 className="text-xl font-semibold text-gray-900">AI/ML Intern - JBCodeApp</h3>
+                    <p className="text-gray-600 mb-4">May 2024 – Jun 2024</p>
+                    <div className="text-gray-600">
+                        <p className="mb-2">Location: Greater Surat Area</p>
+                        <p className="text-gray-500">Real-time face recognition (OpenCV) and image pipelines; integrated AI/ML features into web flows.</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Community Member - Generation Nothing</h3>
-            <p className="text-gray-600 mb-4">Jun 2023 – Present</p>
-            <div className="text-gray-600">
-              <p className="mb-2">Location: India (Remote)</p>
-              <p>Joined Generation Nothing student community program organized by Nothing and Yuva</p>
-              <p className="text-gray-500">Skills: Communication</p>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Software Testing as User - Nothing</h3>
-            <p className="text-gray-600 mb-4">Feb 2023 – Present</p>
-            <div className="text-gray-600">
-              <p className="mb-2">Location: India</p>
-              <p className="text-gray-500">Skills: Testing, Communication, Manual Testing</p>
-            </div>
-          </div>
-        </div>
-      ),
+        ),
     },
     {
-      title: "2022",
-      content: (
-        <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Moderator - Google Developer Students Club</h3>
-          <p className="text-gray-600 mb-4">Jun 2022 – Sep 2023</p>
-          <div className="text-gray-600">
-            <p className="mb-2">Location: Surat, Gujarat, India</p>
-            <p className="text-gray-500">Skills: Communication, Time Management, Team Management</p>
-          </div>
-        </div>
-      ),
-    },
-    {
-      title: "2021",
-      content: (
-        <div className="bg-white p-6 rounded-lg shadow-sm">
-          <h3 className="text-xl font-semibold text-gray-900">Freelance Editor - Fiverr</h3>
-          <p className="text-gray-600 mb-4">Feb 2021 – Jul 2023</p>
-          <div className="text-gray-600">
-            <p className="text-gray-500">Skills: Adobe Premiere Pro, Blender, Adobe Lightroom, After Effects, Communication, Adobe Photoshop</p>
-          </div>
-        </div>
-      ),
-    },
+        title: "2023-2024",
+        content: (
+            <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+                <div>
+                    <h3 className="text-xl font-semibold text-gray-900">AI/ML Intern - AlgobrainAI</h3>
+                    <p className="text-gray-600 mb-4">Sep 2023 – Jan 2024</p>
+                    <div className="text-gray-600">
+                        <p className="mb-2">Location: Surat</p>
+                        <p className="text-gray-500">Chatbot stack with Rasa/Dialogflow; POCs in CV and NLP; documentation and testing.</p>
+                    </div>
+                </div>
+            </div>
+        ),
+    }
   ];
 
   return (
@@ -283,14 +199,11 @@ export default function HomePage() {
             className="block"
             as="div"
           >
-            <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
-              <span>I am an</span>
-              <FlipWords 
-                words={roles}
-                className="text-gray-900 font-semibold"
-                duration={4000}
-              />
-            </div>
+            <p className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8">
+                AI/ML Engineer & Full-Stack Developer building agentic systems, privacy-respecting AI apps, and fast, pragmatic tooling.
+                <br />
+                Flutter • FastAPI • Supabase • LangGraph • Next.js.
+            </p>
           </TextEffect>
 
           <TextEffect
@@ -326,6 +239,17 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section id="about" className="py-16 sm:py-20 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-gray-900 font-mono">About Me</h2>
+          <p className="text-lg text-gray-700">
+            I ship AI-native products end to end: model integration, orchestration, backend APIs, and polished frontends. Recent work includes PocketLLM (cross-platform LLM chat with bring-your-own-keys), EchoGen.ai (AI podcast pipeline from any URL), a Streamlit whiteboard component (tldraw v2), and hiVPN (Flutter VPN client template). I like clean abstractions, measurable impact, and docs that don’t lie.
+          </p>
+        </div>
+      </section>
+
+
       {/* Education Section */}
       <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
         <Timeline 
@@ -353,41 +277,83 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center text-gray-900 font-mono">Projects</h2>
-          <FeaturesSectionWithHoverEffects />
-        </div>
-      </section>
+      <ProjectsSection />
 
       {/* Skills Section */}
-      <section id="skills" className="max-w-7xl mx-auto py-16 sm:py-20 px-4 sm:px-6">
-        <GradientHeading size="lg" className="text-center mb-8 sm:mb-10 text-3xl sm:text-4xl">
-          Technologies
-        </GradientHeading>
-        <div className="max-w-5xl mx-auto">
-          <LogoCarousel
-            columnCount={3}
-            logos={[
-              { name: "Python", id: 1, img: PythonIcon },
-              { name: "TensorFlow", id: 2, img: TensorFlowIcon },
-              { name: "PyTorch", id: 3, img: PyTorchIcon },
-              { name: "OpenCV", id: 4, img: OpenCVIcon },
-              { name: "Pandas", id: 5, img: PandasIcon },
-              { name: "NumPy", id: 6, img: NumPyIcon },
-              { name: "Scikit Learn", id: 7, img: ScikitLearnIcon },
-              { name: "Flask", id: 8, img: FlaskIcon },
-              { name: "Git", id: 9, img: GitIcon },
-              { name: "PostgreSQL", id: 10, img: PostgreSQLIcon },
-              { name: "Power BI", id: 11, img: PowerBIIcon },
-              { name: "Firebase", id: 12, img: FirebaseIcon },
-              { name: "Node.js", id: 13, img: NodejsIcon },
-              { name: "React Native", id: 14, img: ReactNativeIcon },
-              { name: "C", id: 15, img: CIcon }
-            ]}
-          />
-        </div>
-      </section>
+        <section id="skills" className="max-w-7xl mx-auto py-16 sm:py-20 px-4 sm:px-6">
+            <GradientHeading size="lg" className="text-center mb-8 sm:mb-10 text-3xl sm:text-4xl">
+                Technologies
+            </GradientHeading>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">Languages</h3>
+                    <ul>
+                        <li>Python</li>
+                        <li>Dart</li>
+                        <li>TypeScript/JavaScript</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">Frameworks</h3>
+                    <ul>
+                        <li>Flutter</li>
+                        <li>FastAPI</li>
+                        <li>Next.js/React</li>
+                        <li>Streamlit</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">AI/Agent</h3>
+                    <ul>
+                        <li>LangGraph</li>
+                        <li>LangChain</li>
+                        <li>CrewAI</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">Data/Storage</h3>
+                    <ul>
+                        <li>Supabase</li>
+                        <li>PostgreSQL</li>
+                        <li>MongoDB</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">ML</h3>
+                    <ul>
+                        <li>scikit-learn</li>
+                        <li>TensorFlow</li>
+                        <li>PyTorch</li>
+                        <li>OpenCV</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">MLOps</h3>
+                    <ul>
+                        <li>MLflow</li>
+                        <li>Vertex AI</li>
+                        <li>SageMaker</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">Infra/Tooling</h3>
+                    <ul>
+                        <li>Docker</li>
+                        <li>GitHub Actions</li>
+                        <li>Vercel</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 className="text-xl font-semibold mb-2">Design</h3>
+                    <ul>
+                        <li>Tailwind</li>
+                        <li>ShadCN</li>
+                        <li>Framer Motion</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
