@@ -27,6 +27,7 @@ interface SocialLink {
 interface FooterProps {
     brandName?: string;
     brandDescription?: string;
+    backgroundText?: string;
     socialLinks?: SocialLink[];
     navLinks?: FooterLink[];
     creatorName?: string;
@@ -41,16 +42,17 @@ const AI_TOOLS = [
     { name: "Claude", url: "https://claude.ai/new?q=", color: "hover:text-[#D97757]" },
     { name: "Grok", url: "https://x.com/i/grok?text=", color: "hover:text-white" },
     { name: "Perplexity", url: "https://www.perplexity.ai/search?q=", color: "hover:text-[#22B8CD]" },
-    { name: "Qwen", url: "https://chat.qwen.lm/max?q=", color: "hover:text-[#6A5ACD]" }, // Hypothetical URL structure
-    { name: "Z AI", url: "https://www.z.ai/", color: "hover:text-yellow-500" }, // Generic link
-    { name: "Kimi", url: "https://kimi.moonshot.cn/", color: "hover:text-blue-400" }, // Generic link
-    { name: "Genspark", url: "https://www.genspark.ai/", color: "hover:text-purple-500" }, // Generic link
-    { name: "Manus", url: "https://manus.ai/", color: "hover:text-green-500" } // Generic link
+    { name: "Qwen", url: "https://chat.qwen.lm/max?q=", color: "hover:text-[#6A5ACD]" },
+    { name: "Z AI", url: "https://www.z.ai/", color: "hover:text-yellow-500" },
+    { name: "Kimi", url: "https://kimi.moonshot.cn/", color: "hover:text-blue-400" },
+    { name: "Genspark", url: "https://www.genspark.ai/", color: "hover:text-purple-500" },
+    { name: "Manus", url: "https://manus.ai/", color: "hover:text-green-500" }
 ];
 
 export const Footer: React.FC<FooterProps> = ({
     brandName = "YourBrand",
     brandDescription = "Your description here",
+    backgroundText,
     socialLinks = [],
     navLinks = [],
     creatorName,
@@ -189,12 +191,12 @@ export const Footer: React.FC<FooterProps> = ({
                         maxWidth: '95vw'
                     }}
                 >
-                    {brandName.toUpperCase()}
+                    {(backgroundText || brandName.split(' ')[0]).toUpperCase()}
                 </div>
 
                 {/* Bottom logo */}
                 <div className="absolute hover:border-foreground duration-400 drop-shadow-[0_0px_20px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0px_20px_rgba(255,255,255,0.3)] bottom-24 md:bottom-20 backdrop-blur-sm rounded-3xl bg-background/60 left-1/2 border-2 border-border flex items-center justify-center p-3 -translate-x-1/2 z-10">
-                    <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center shadow-lg">
+                    <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
                         {brandIcon || (
                             <NotepadTextDashed className="w-8 sm:w-10 md:w-14 h-8 sm:h-10 md:h-14 text-background drop-shadow-lg" />
                         )}

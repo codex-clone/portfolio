@@ -325,11 +325,11 @@ export default function HomePage() {
           <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
 
             {/* Desktop: Left side - Text and Icons (hidden on mobile) */}
-            <div className="hidden md:flex flex-1 text-center lg:text-left flex-col items-center lg:items-start">
+            <div className="hidden md:flex flex-1 flex-col items-start">
               <TextEffect
                 preset="slide"
                 trigger={!isScrolled}
-                className="block w-full"
+                className="block"
                 as="div"
                 delay={0.2}
                 duration={0.8}
@@ -345,10 +345,10 @@ export default function HomePage() {
                 trigger={!isScrolled}
                 delay={0.5}
                 duration={0.8}
-                className="block w-full"
+                className="block"
                 as="div"
               >
-                <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center lg:justify-start gap-2 w-full">
+                <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center gap-2">
                   <span>I am an</span>
                   <FlipWords
                     words={roles}
@@ -467,10 +467,10 @@ export default function HomePage() {
           <TechnologiesSection />
         </section>
 
-        {/* Contact Section */}
-        <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
+        {/* Contact Section - Hidden for now */}
+        {/* <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
           <ContactForm />
-        </section>
+        </section> */}
 
         {/* Footer */}
         <Footer
@@ -486,8 +486,7 @@ export default function HomePage() {
             { label: "Education", href: "#education" },
             { label: "Experience", href: "#experience" },
             { label: "Projects", href: "#projects" },
-            { label: "Skills", href: "#skills" },
-            { label: "Contact", href: "#contact" }
+            { label: "Skills", href: "#skills" }
           ]}
           creatorName="Prashant Choudhary"
           creatorUrl="https://github.com/Mr-Dark-Debug"
@@ -495,9 +494,9 @@ export default function HomePage() {
             <Image
               src="/professional.png"
               alt="Prashant"
-              width={56}
-              height={56}
-              className="rounded-xl object-cover"
+              width={80}
+              height={80}
+              className="rounded-xl object-cover w-full h-full"
             />
           }
         />
