@@ -46,12 +46,10 @@ const SparkleIcon = () => (
 );
 
 export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
-  const { messages, append, isLoading, setMessages } = useChat({
-    api: '/api/chat',
-    body: {
-      model: 'openai/gpt-oss-120b'
-    }
-  })
+  const { messages, sendMessage, status } = useChat()
+
+  const isLoading = status === 'streaming' || status === 'submitted';
+
   const [inputValue, setInputValue] = React.useState('')
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
@@ -76,17 +74,23 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     const message = inputValue.trim()
     setInputValue('')
 
-    await append({
-      role: 'user',
-      content: message,
+    await sendMessage({ // Removed role: 'user' as it's not in the signature
+      text: message, // Changed content to text
+    }, {
+      body: {
+        model: 'openai/gpt-oss-120b'
+      }
     })
   }
 
   const handleSuggestedClick = async (suggestion: string) => {
     setInputValue('')
-    await append({
-      role: 'user',
-      content: suggestion,
+    await sendMessage({
+      text: suggestion,
+    }, {
+      body: {
+        model: 'openai/gpt-oss-120b'
+      }
     })
   }
 
