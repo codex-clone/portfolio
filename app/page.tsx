@@ -325,11 +325,11 @@ export default function HomePage() {
           <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
 
             {/* Desktop: Left side - Text and Icons (hidden on mobile) */}
-            <div className="hidden md:flex flex-1 flex-col items-start">
+            <div className="hidden md:flex flex-1 flex-col items-center lg:items-center">
               <TextEffect
                 preset="slide"
                 trigger={!isScrolled}
-                className="block"
+                className="block text-center"
                 as="div"
                 delay={0.2}
                 duration={0.8}
@@ -348,7 +348,7 @@ export default function HomePage() {
                 className="block"
                 as="div"
               >
-                <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center gap-2">
+                <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center gap-2">
                   <span>I am an</span>
                   <FlipWords
                     words={roles}
@@ -364,6 +364,7 @@ export default function HomePage() {
                 delay={0.8}
                 duration={1}
                 as="div"
+                className="flex justify-center"
               >
                 <Dock
                   direction="middle"

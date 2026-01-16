@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const systemPrompt = JSON.parse(promptData);
 
     const result = streamText({
-      model: groq(model || 'llama-3.3-70b-versatile'),
+      model: groq(model || 'openai/gpt-oss-120b'),
       system: systemPrompt.content,
       messages,
       temperature: 0.7,
