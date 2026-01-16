@@ -34,9 +34,9 @@ const getColorValue = (color: string) => {
   return colors[color] || color;
 };
 
-export const Timeline = ({ 
-  data, 
-  title, 
+export const Timeline = ({
+  data,
+  title,
   description,
   progressBarColors = {
     from: "purple-500",
@@ -49,14 +49,21 @@ export const Timeline = ({
 
   useEffect(() => {
     if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
+      const resizeObserver = new ResizeObserver((entries) => {
+        for (const entry of entries) {
+          const rect = entry.target.getBoundingClientRect();
+          setHeight(rect.height);
+        }
+      });
+
+      resizeObserver.observe(ref.current);
+      return () => resizeObserver.disconnect();
     }
   }, [ref]);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"],
+    offset: ["start 10%", "end 50%"],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);

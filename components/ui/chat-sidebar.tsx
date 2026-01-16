@@ -2,18 +2,16 @@
 
 import * as React from 'react'
 import { useChat } from '@ai-sdk/react'
-import { X, Send, MessageCircle } from 'lucide-react'
+import { X, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Conversation, ConversationContent } from '@/components/ui/conversation'
 import { Message, MessageAvatar, MessageContent } from '@/components/ui/message'
-import { PromptInput, PromptInputActions, PromptInputTextarea } from '@/components/ui/prompt-input'
 import { cn } from '@/lib/utils'
+import { ClaudeChatInput } from '@/components/ui/claude-style-chat-input'
 
 export function ChatSidebar() {
   const [isOpen, setIsOpen] = React.useState(false)
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: '/api/chat',
-  })
+  const { messages, append, isLoading } = useChat() as any
 
   const userAvatar = 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=80&h=80&q=80'
   const assistantAvatar = 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&h=80&q=80'
@@ -67,7 +65,7 @@ export function ChatSidebar() {
                   <p className="text-sm text-slate-500 mt-1">Ask me about my projects, skills, or experience</p>
                 </div>
               ) : (
-                messages.map((message) => (
+                messages.map((message: any) => (
                   <Message key={message.id} from={message.role as 'user' | 'assistant'}>
                     <MessageAvatar
                       src={message.role === 'user' ? userAvatar : assistantAvatar}
@@ -95,28 +93,17 @@ export function ChatSidebar() {
 
         {/* Input Area */}
         <div className="border-t border-slate-200 bg-white p-4">
-          <PromptInput
-            value={input}
-            onValueChange={handleInputChange}
-            onSubmit={handleSubmit}
-            className="flex items-end gap-2 rounded-lg border border-slate-200 bg-white p-2 shadow-sm"
-          >
-            <PromptInputTextarea
-              placeholder="Type your message..."
-              rows={1}
-              className="flex-1 border-none bg-transparent px-2 py-1 text-sm outline-none resize-none"
-            />
-            <PromptInputActions className="justify-end">
-              <Button
-                type="submit"
-                size="icon"
-                disabled={!input || !input.trim() || isLoading}
-                className="h-8 w-8 rounded-md bg-slate-900 text-white hover:bg-slate-800 disabled:bg-slate-300"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            </PromptInputActions>
-          </PromptInput>
+          <ClaudeChatInput
+            onSendMessage={async (data) => {
+              await append({
+                role: 'user',
+                content: data.message,
+                // Handle files if needed later, currently just text
+              }, {
+                body: { model: data.model }
+              });
+            }}
+          />
         </div>
       </div>
     </>

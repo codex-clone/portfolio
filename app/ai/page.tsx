@@ -1,8 +1,13 @@
 "use client"
 
-import { ChatExperience } from "@/components/ui/chat-experience"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import dynamic from "next/dynamic"
+
+const ChatExperience = dynamic(
+  () => import("@/components/ui/chat-experience").then((mod) => mod.ChatExperience),
+  { ssr: false }
+);
 
 export default function AIPage() {
   return (

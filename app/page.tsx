@@ -18,25 +18,7 @@ import {
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
 import { ProjectsSection } from "@/components/ui/projects-section";
-import { GradientHeading } from "@/components/ui/gradient-heading";
-import { LogoCarousel } from "@/components/ui/logo-carousel";
-import {
-  PythonIcon,
-  TensorFlowIcon,
-  PyTorchIcon,
-  OpenCVIcon,
-  PandasIcon,
-  NumPyIcon,
-  ScikitLearnIcon,
-  FlaskIcon,
-  GitIcon,
-  PostgreSQLIcon,
-  PowerBIIcon,
-  FirebaseIcon,
-  NodejsIcon,
-  ReactNativeIcon,
-  CIcon
-} from "@/components/ui/tech-icons";
+import { TechnologiesSection } from "@/components/ui/technologies-section";
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
 import { ChatWidget } from "@/components/ui/chat-widget";
@@ -91,7 +73,9 @@ export default function HomePage() {
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <h3 className="text-xl font-semibold text-gray-900">Bachelor's Degree in Artificial Intelligence and Data Science</h3>
-          <p className="text-gray-600">Uka Tarsadia University (7th Semester)</p>
+          <p className="text-gray-600">Uka Tarsadia University</p>
+          <p className="text-gray-500 mb-2">Sep 2021 - Jul 2025 (Completed)</p>
+          <p className="text-gray-500 text-sm">Skills: Pattern Recognition, Data Mining, AI, Flask, Data Structures, PyTorch, Hadoop, SciPy, Deep Learning, Pandas, Data Analytics</p>
         </div>
       ),
     },
@@ -102,6 +86,7 @@ export default function HomePage() {
           <h3 className="text-xl font-semibold text-gray-900">Grade XII, Science</h3>
           <p className="text-gray-600">Gyanjyot School</p>
           <p className="text-gray-500">Physics, Chemistry, Maths</p>
+          <p className="text-gray-500 text-sm mt-1">Skills: Probability, Team Leadership, Time Management, Statistics</p>
         </div>
       ),
     },
@@ -118,15 +103,84 @@ export default function HomePage() {
 
   const experienceData = [
     {
-      title: "2024-25",
+      title: "2026",
       content: (
         <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
           <div>
-            <h3 className="text-xl font-semibold text-gray-900">A.I Prompt Engineer Intern - Enacton Technologies</h3>
-            <p className="text-gray-600 mb-4">Dec 2024 – Present</p>
+            <h3 className="text-xl font-semibold text-gray-900">Developer & Founder - MugShot Studio</h3>
+            <p className="text-gray-600 mb-4">Dec 2025 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Self-employed</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Founder & Developer - Syntax & Sips</h3>
+            <p className="text-gray-600 mb-4">Oct 2025 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">India</p>
+              <p className="text-gray-500">Built a content platform for ML, DS, and developer education; weekly playbooks and tutorials.</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Software Testing as User - Nothing</h3>
+            <p className="text-gray-600 mb-4">Feb 2023 – Present</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: India (Remote)</p>
+              <p className="text-gray-500">Skills: Testing, Communication, Manual Testing</p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2025",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Junior AI/ML backend Engineer - EnactOn Technologies</h3>
+            <p className="text-gray-600 mb-4">Jul 2025 – Nov 2025</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: Surat, Gujarat, India (On-site)</p>
+              <p className="text-gray-500">Full-time</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Jr. AI/ML Engineer - Proposal.biz</h3>
+            <p className="text-gray-600 mb-4">Jul 2025 – Nov 2025</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: Surat, Gujarat, India (Hybrid)</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">A.I Prompt Engineer Intern - EnactOn Technologies</h3>
+            <p className="text-gray-600 mb-4">Dec 2024 – Jul 2025</p>
             <div className="text-gray-600">
               <p className="mb-2">Location: India (On-site)</p>
               <p className="text-gray-500">Skills: Artificial Intelligence (AI), Generative AI Studio, Machine Learning Algorithms</p>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Community Member - Generation Nothing</h3>
+            <p className="text-gray-600 mb-4">Jun 2023 – Oct 2025</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: India (Remote)</p>
+              <p className="text-gray-500">Skills: Communication</p>
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "2024",
+      content: (
+        <div className="bg-white p-6 rounded-lg shadow-sm space-y-8">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900">Amalthea 2024 Hackathon (IIT Gandhinagar)</h3>
+            <p className="text-gray-600 mb-4">Dec 2024 – Dec 2024</p>
+            <div className="text-gray-600">
+              <p className="mb-2">Location: Gandhinagar, Gujarat, India (On-site)</p>
+              <p className="text-gray-500">AI Engineer | Top 7/50 Teams. Built a multilingual healthcare app with AI-driven IVR.</p>
+              <p className="text-gray-500 text-sm mt-1">Tech Stack: Python, FastAPI, Dialogflow, Twilio, Gemini, PyTorch</p>
             </div>
           </div>
           <div>
@@ -134,11 +188,10 @@ export default function HomePage() {
             <p className="text-gray-600 mb-4">May 2024 – Jun 2024</p>
             <div className="text-gray-600">
               <p className="mb-2">Location: Greater Surat Area (On-site)</p>
-              <ul className="list-disc list-inside space-y-2">
+              <ul className="list-disc list-inside space-y-2 text-sm">
                 <li>Image-based Face Recognition using face_recognition library</li>
                 <li>Real-time Video Face Recognition with OpenCV</li>
                 <li>Applied AI/ML techniques to enhance web functionalities</li>
-                <li>Collaborated with a dynamic team to deliver high-quality software solutions</li>
               </ul>
             </div>
           </div>
@@ -154,24 +207,15 @@ export default function HomePage() {
             <p className="text-gray-600 mb-4">Sep 2023 – Jan 2024</p>
             <div className="text-gray-600">
               <p className="mb-2">Location: Surat, Gujarat, India (On-site)</p>
-              <p className="text-gray-500">Skills: rasa, Dialogflow, TensorFlow, Communication</p>
+              <p className="text-gray-500">Skills: Rasa, Dialogflow, TensorFlow, Communication</p>
             </div>
           </div>
           <div>
-            <h3 className="text-xl font-semibold text-gray-900">Community Member - Generation Nothing</h3>
-            <p className="text-gray-600 mb-4">Jun 2023 – Present</p>
+            <h3 className="text-xl font-semibold text-gray-900">Moderator - Google Developer Students Club</h3>
+            <p className="text-gray-600 mb-4">Jun 2022 – Sep 2023</p>
             <div className="text-gray-600">
-              <p className="mb-2">Location: India (Remote)</p>
-              <p>Joined Generation Nothing student community program organized by Nothing and Yuva</p>
-              <p className="text-gray-500">Skills: Communication</p>
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-gray-900">Software Testing as User - Nothing</h3>
-            <p className="text-gray-600 mb-4">Feb 2023 – Present</p>
-            <div className="text-gray-600">
-              <p className="mb-2">Location: India</p>
-              <p className="text-gray-500">Skills: Testing, Communication, Manual Testing</p>
+              <p className="mb-2">Location: Surat, Gujarat, India</p>
+              <p className="text-gray-500">Skills: Communication, Time Management, Team Management</p>
             </div>
           </div>
         </div>
@@ -185,7 +229,7 @@ export default function HomePage() {
           <p className="text-gray-600 mb-4">Jun 2022 – Sep 2023</p>
           <div className="text-gray-600">
             <p className="mb-2">Location: Surat, Gujarat, India</p>
-            <p className="text-gray-500">Skills: Communication, Time Management, Team Management</p>
+            <p className="text-gray-500">Started role as Moderator.</p>
           </div>
         </div>
       ),
@@ -197,7 +241,7 @@ export default function HomePage() {
           <h3 className="text-xl font-semibold text-gray-900">Freelance Editor - Fiverr</h3>
           <p className="text-gray-600 mb-4">Feb 2021 – Jul 2023</p>
           <div className="text-gray-600">
-            <p className="text-gray-500">Skills: Adobe Premiere Pro, Blender, Adobe Lightroom, After Effects, Communication, Adobe Photoshop</p>
+            <p className="text-gray-500">Skills: Adobe Premiere Pro, Blender, Lightroom, After Effects, Photoshop</p>
           </div>
         </div>
       ),
@@ -253,146 +297,122 @@ export default function HomePage() {
         )}
       >
 
-      {/* Hero Section */}
-      <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 sm:py-32">
-        <AnimatedGridPattern
-          className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] absolute inset-0"
-          numSquares={30}
-          maxOpacity={0.15}
-          duration={5}
-        />
-        <div className="relative z-10 text-center max-w-4xl mx-auto">
-          <TextEffect
-            preset="slide"
-            trigger={!isScrolled}
-            className="block"
-            as="div"
-            delay={0.2}
-            duration={0.8}
-          >
-            <WordPullUp
-              words="PRASHANT CHOUDHARY"
-              className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
-            />
-          </TextEffect>
-          
-          <TextEffect
-            preset="scale"
-            trigger={!isScrolled}
-            delay={0.5}
-            duration={0.8}
-            className="block"
-            as="div"
-          >
-            <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
-              <span>I am an</span>
-              <FlipWords
-                words={roles}
-                className="text-gray-900 font-semibold"
-                duration={4000}
-              />
-            </div>
-          </TextEffect>
-
-          <TextEffect
-            preset="fade"
-            trigger={!isScrolled}
-            delay={0.8}
-            duration={1}
-            as="div"
-          >
-            <Dock 
-              direction="middle" 
-              className="bg-white/5 border-gray-200/10" 
-              magnification={35} 
-              distance={80}
-            >
-              <DockIcon>
-                <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Linkedin className="size-5 sm:size-6" />
-                </Link>
-              </DockIcon>
-              <DockIcon>
-                <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Github className="size-5 sm:size-6" />
-                </Link>
-              </DockIcon>
-              <DockIcon>
-                <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                  <Mail className="size-5 sm:size-6" />
-                </Link>
-              </DockIcon>
-            </Dock>
-          </TextEffect>
-        </div>
-      </section>
-
-      {/* Education Section */}
-      <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
-        <Timeline 
-          data={educationData} 
-          title="Educational Journey"
-          description="My academic path in Artificial Intelligence and Data Science, showcasing my progression from school to university."
-          progressBarColors={{
-            from: "emerald-500",
-            via: "teal-500"
-          }}
-        />
-      </section>
-
-      {/* Experience Section */}
-      <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6">
-        <Timeline 
-          data={experienceData} 
-          title="Professional Experience"
-          description="My journey in the tech industry, working with AI, ML, and software development."
-          progressBarColors={{
-            from: "indigo-500",
-            via: "violet-500"
-          }}
-        />
-      </section>
-
-      {/* Projects Section */}
-      <ProjectsSection />
-
-      {/* Skills Section */}
-      <section id="skills" className="max-w-7xl mx-auto py-16 sm:py-20 px-4 sm:px-6">
-        <GradientHeading size="lg" className="text-center mb-8 sm:mb-10 text-3xl sm:text-4xl">
-          Technologies
-        </GradientHeading>
-        <div className="max-w-5xl mx-auto">
-          <LogoCarousel
-            columnCount={3}
-            logos={[
-              { name: "Python", id: 1, img: PythonIcon },
-              { name: "TensorFlow", id: 2, img: TensorFlowIcon },
-              { name: "PyTorch", id: 3, img: PyTorchIcon },
-              { name: "OpenCV", id: 4, img: OpenCVIcon },
-              { name: "Pandas", id: 5, img: PandasIcon },
-              { name: "NumPy", id: 6, img: NumPyIcon },
-              { name: "Scikit Learn", id: 7, img: ScikitLearnIcon },
-              { name: "Flask", id: 8, img: FlaskIcon },
-              { name: "Git", id: 9, img: GitIcon },
-              { name: "PostgreSQL", id: 10, img: PostgreSQLIcon },
-              { name: "Power BI", id: 11, img: PowerBIIcon },
-              { name: "Firebase", id: 12, img: FirebaseIcon },
-              { name: "Node.js", id: 13, img: NodejsIcon },
-              { name: "React Native", id: 14, img: ReactNativeIcon },
-              { name: "C", id: 15, img: CIcon }
-            ]}
+        {/* Hero Section */}
+        <section id="home" className="relative min-h-[100svh] flex items-center justify-center overflow-hidden px-4 sm:px-6 py-20 sm:py-32">
+          <AnimatedGridPattern
+            className="[mask-image:radial-gradient(ellipse_at_center,white,transparent)] absolute inset-0"
+            numSquares={30}
+            maxOpacity={0.15}
+            duration={5}
           />
-        </div>
-      </section>
+          <div className="relative z-10 text-center max-w-4xl mx-auto">
+            <TextEffect
+              preset="slide"
+              trigger={!isScrolled}
+              className="block"
+              as="div"
+              delay={0.2}
+              duration={0.8}
+            >
+              <WordPullUp
+                words="PRASHANT CHOUDHARY"
+                className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
+              />
+            </TextEffect>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
-        <ContactForm />
-      </section>
+            <TextEffect
+              preset="scale"
+              trigger={!isScrolled}
+              delay={0.5}
+              duration={0.8}
+              className="block"
+              as="div"
+            >
+              <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
+                <span>I am an</span>
+                <FlipWords
+                  words={roles}
+                  className="text-gray-900 font-semibold"
+                  duration={4000}
+                />
+              </div>
+            </TextEffect>
 
-      <ChatWidget />
-      <ChatSidebar />
-    </main>
+            <TextEffect
+              preset="fade"
+              trigger={!isScrolled}
+              delay={0.8}
+              duration={1}
+              as="div"
+            >
+              <Dock
+                direction="middle"
+                className="bg-white/5 border-gray-200/10"
+                magnification={35}
+                distance={80}
+              >
+                <DockIcon>
+                  <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                    <Linkedin className="size-5 sm:size-6" />
+                  </Link>
+                </DockIcon>
+                <DockIcon>
+                  <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                    <Github className="size-5 sm:size-6" />
+                  </Link>
+                </DockIcon>
+                <DockIcon>
+                  <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
+                    <Mail className="size-5 sm:size-6" />
+                  </Link>
+                </DockIcon>
+              </Dock>
+            </TextEffect>
+          </div>
+        </section>
+
+        {/* Education Section */}
+        <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
+          <Timeline
+            data={educationData}
+            title="Educational Journey"
+            description="My academic path in Artificial Intelligence and Data Science, showcasing my progression from school to university."
+            progressBarColors={{
+              from: "emerald-500",
+              via: "teal-500"
+            }}
+          />
+        </section>
+
+        {/* Experience Section */}
+        <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6">
+          <Timeline
+            data={experienceData}
+            title="Professional Experience"
+            description="My journey in the tech industry, working with AI, ML, and software development."
+            progressBarColors={{
+              from: "indigo-500",
+              via: "violet-500"
+            }}
+          />
+        </section>
+
+        {/* Projects Section */}
+        <ProjectsSection />
+
+        {/* Skills Section */}
+        <section id="skills" className="w-full">
+          <TechnologiesSection />
+        </section>
+
+        {/* Contact Section */}
+        <section id="contact" className="py-16 sm:py-20 px-4 sm:px-6">
+          <ContactForm />
+        </section>
+
+        <ChatWidget />
+        <ChatSidebar />
+      </main>
     </>
   );
 }

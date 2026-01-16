@@ -1,24 +1,30 @@
 import { streamText } from 'ai';
-import { groq } from '@ai-sdk/groq';
+import { createGroq } from '@ai-sdk/groq';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 export const runtime = 'nodejs';
 
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+});
+
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, model } = await req.json();
+
+    const promptPath = path.join(process.cwd(), 'data', 'system_prompt.json');
+    const promptData = await fs.readFile(promptPath, 'utf8');
+    const systemPrompt = JSON.parse(promptData);
 
     const result = streamText({
-      model: groq('mixtral-8x7b-32768'),
-      system: `You are Prashant's AI assistant. You are knowledgeable about his portfolio, projects, skills, and experience. 
-      You help visitors learn about Prashant's work as an AI/ML Engineer and Full Stack Developer.
-      Be friendly, professional, and provide detailed information about his projects and expertise.
-      If asked about something not in your knowledge, politely let them know and suggest they contact Prashant directly.`,
+      model: groq(model || 'llama-3.3-70b-versatile'),
+      system: systemPrompt.content,
       messages,
       temperature: 0.7,
-      maxTokens: 1024,
     });
 
-    return result.toDataStreamResponse();
+    return result.toTextStreamResponse();
   } catch (error) {
     console.error('Chat API error:', error);
     return new Response(

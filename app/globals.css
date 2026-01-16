@@ -29,7 +29,26 @@
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+
+    /* Claude Chat Input Variables */
+    --bg-0: #FAF9F5;
+    --bg-000: #FAF9F5;
+    --bg-100: #FFFFFF;
+    --bg-200: #F0EEE6;
+    --bg-300: #DDDDDD;
+    --text-100: #1F1E1D;
+    --text-200: #3D3D3A;
+    --text-300: #73726C;
+    --text-400: #888888;
+    --text-500: #999999;
+    --accent: #D97757;
+    --accent-hover: #C6613F;
+    --ease-silk: cubic-bezier(0.2, 0.0, 0, 1.0);
+    --shadow-input: 0 1px 2px -1px rgba(0, 0, 0, 0.08), 0 2px 8px -2px rgba(0, 0, 0, 0.04);
+    --shadow-input-hover: 0 1px 2px -1px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+    --shadow-input-focus: 0 0 0 2px rgba(217, 119, 87, 0.1), 0 4px 12px -2px rgba(0, 0, 0, 0.08);
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -55,6 +74,20 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+
+    /* Claude Chat Input Variables */
+    --bg-0: #212121;
+    --bg-000: #212121;
+    --bg-100: #262624;
+    --bg-200: #30302E;
+    --bg-300: #454540;
+    --text-100: #ECECEC;
+    --text-200: #E1E1E0;
+    --text-300: #B4B4B4;
+    --text-400: #8A8A88;
+    --text-500: #6B6B65;
+    --accent: #D2996E;
+    --accent-hover: #E5AA7F;
   }
 }
 
@@ -73,6 +106,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
