@@ -19,7 +19,7 @@
     "@radix-ui/react-slot": "^1.1.1",
     "@radix-ui/react-switch": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "@tabler/icons-react": "^3.28.1",
+    "@tabler/icons-react": "^3.36.1",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "ai": "^5.0.80",

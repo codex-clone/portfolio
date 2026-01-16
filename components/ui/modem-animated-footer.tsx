@@ -127,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({
                             {/* AI Summarizer Section */}
                             <div className="w-full max-w-4xl mx-auto my-8 flex flex-col items-center gap-4 text-center">
                                 <div className="flex items-center gap-2 text-foreground font-semibold">
-                                    <Sparkles className="w-4 h-4 text-accent-main" />
+                                    <Sparkles className="w-4 h-4 text-purple-500" />
                                     <span>Have doubts? Ask AI Summarizer</span>
                                 </div>
 

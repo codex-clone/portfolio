@@ -13,26 +13,29 @@ import {
   Linkedin,
   Mail,
   Menu,
-  X
+  X,
+  Sparkles
 } from "lucide-react";
 import Link from "next/link";
 import { Timeline } from "@/components/ui/timeline";
-import { ProjectsSection } from "@/components/ui/projects-section";
 import { TechnologiesSection } from "@/components/ui/technologies-section";
 import { ContactForm } from "@/components/ui/contact-form";
 import { Dock, DockIcon } from "@/components/ui/dock";
-import { ChatWidget } from "@/components/ui/chat-widget";
 import { ChatSidebar } from "@/components/ui/chat-sidebar";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useState } from "react";
+import GlassmorphismProfileCard from "@/components/ui/glassmorphism-profile-card";
+import { GitHubProjects } from "@/components/ui/github-projects";
+import { Footer } from "@/components/ui/modem-animated-footer";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function HomePage() {
   const roles = [
     "AI Engineer",
     "ML Engineer",
-    "Data Scientist",
+    "Prompt Engineer",
     "Full Stack Developer",
-    "Computer Vision Expert"
+    "Backend Engineer"
   ];
 
   const navItems = [
@@ -42,20 +45,14 @@ export default function HomePage() {
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
     { label: "Contact", href: "#contact" },
-    { label: "Generative Answers", href: "/ai" }
   ];
 
   const isScrolled = useScrollTrigger(100);
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
-  useEffect(() => {
-    if (isDesktop) {
-      setIsSidebarOpen(true);
-    } else {
-      setIsSidebarOpen(false);
-    }
-  }, [isDesktop]);
+  // Removed auto-open sidebar effect - sidebar closed by default
 
   const toggleSidebar = () => {
     setIsSidebarOpen((prev) => !prev);
@@ -65,6 +62,11 @@ export default function HomePage() {
     if (!isDesktop) {
       setIsSidebarOpen(false);
     }
+  };
+
+  const openGenerativeAnswers = () => {
+    setIsSidebarOpen(false);
+    setIsChatOpen(true);
   };
 
   const educationData = [
@@ -250,41 +252,54 @@ export default function HomePage() {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={toggleSidebar}
-        className="fixed left-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-lg backdrop-blur transition hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-50"
-        aria-expanded={isSidebarOpen}
-        aria-controls="portfolio-sidebar"
-      >
-        {isSidebarOpen ? <X className="size-5" /> : <Menu className="size-5" />}
-        Menu
-      </button>
+      {/* Menu Button - Hidden when chat is open */}
+      {!isChatOpen && (
+        <button
+          type="button"
+          onClick={toggleSidebar}
+          className="fixed left-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-zinc-200 bg-white/90 px-4 py-2 text-sm font-semibold text-zinc-900 shadow-lg backdrop-blur transition hover:shadow-xl hover:text-purple-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 dark:border-zinc-800 dark:bg-zinc-900/90 dark:text-zinc-50 dark:hover:text-purple-400"
+          aria-expanded={isSidebarOpen}
+          aria-controls="portfolio-sidebar"
+        >
+          {isSidebarOpen ? <X className="size-5" /> : <Menu className="size-5" />}
+          Menu
+        </button>
+      )}
+
+      {/* Generative Answers Button - Hidden when chat or menu is open */}
+      {!isChatOpen && !isSidebarOpen && (
+        <button
+          type="button"
+          onClick={openGenerativeAnswers}
+          className="fixed right-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-purple-200 bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur transition hover:shadow-xl hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+        >
+          <Sparkles className="size-4" />
+          Generative Answers
+        </button>
+      )}
 
       <AnimatePresence>
         {isSidebarOpen && (
           <>
-            {!isDesktop && (
-              <motion.div
-                key="sidebar-backdrop"
-                className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={handleItemClick}
-              />
-            )}
+            <motion.div
+              key="sidebar-backdrop"
+              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setIsSidebarOpen(false)}
+            />
             <motion.aside
               key="sidebar"
               id="portfolio-sidebar"
               className="fixed left-0 top-0 z-50 flex h-full w-72 flex-col border-r border-zinc-200 bg-white/95 pb-10 pt-16 shadow-xl backdrop-blur dark:border-zinc-800 dark:bg-zinc-900/95"
-              initial={{ x: isDesktop ? -40 : -320, opacity: 0 }}
+              initial={{ x: -320, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: -320, opacity: 0 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
             >
-              <MenuVertical menuItems={navItems} color="#2563eb" skew={-8} onItemClick={handleItemClick} />
+              <MenuVertical menuItems={navItems} color="#A78BFA" skew={-8} onItemClick={handleItemClick} />
             </motion.aside>
           </>
         )}
@@ -292,7 +307,7 @@ export default function HomePage() {
 
       <main
         className={cn(
-          "min-h-screen bg-white transition-[padding] duration-300",
+          "min-h-screen bg-white dark:bg-zinc-950 transition-[padding] duration-300",
           isSidebarOpen ? "lg:pl-72" : "lg:pl-0"
         )}
       >
@@ -305,69 +320,112 @@ export default function HomePage() {
             maxOpacity={0.15}
             duration={5}
           />
-          <div className="relative z-10 text-center max-w-4xl mx-auto">
-            <TextEffect
-              preset="slide"
-              trigger={!isScrolled}
-              className="block"
-              as="div"
-              delay={0.2}
-              duration={0.8}
-            >
-              <WordPullUp
-                words="PRASHANT CHOUDHARY"
-                className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
-              />
-            </TextEffect>
 
-            <TextEffect
-              preset="scale"
-              trigger={!isScrolled}
-              delay={0.5}
-              duration={0.8}
-              className="block"
-              as="div"
-            >
-              <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center flex-wrap gap-2">
-                <span>I am an</span>
-                <FlipWords
-                  words={roles}
-                  className="text-gray-900 font-semibold"
-                  duration={4000}
-                />
-              </div>
-            </TextEffect>
+          {/* Two-column layout container */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
 
-            <TextEffect
-              preset="fade"
-              trigger={!isScrolled}
-              delay={0.8}
-              duration={1}
-              as="div"
-            >
-              <Dock
-                direction="middle"
-                className="bg-white/5 border-gray-200/10"
-                magnification={35}
-                distance={80}
+            {/* Desktop: Left side - Text and Icons (hidden on mobile) */}
+            <div className="hidden md:flex flex-1 text-center lg:text-left flex-col items-center lg:items-start">
+              <TextEffect
+                preset="slide"
+                trigger={!isScrolled}
+                className="block w-full"
+                as="div"
+                delay={0.2}
+                duration={0.8}
               >
-                <DockIcon>
-                  <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                    <Linkedin className="size-5 sm:size-6" />
-                  </Link>
-                </DockIcon>
-                <DockIcon>
-                  <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                    <Github className="size-5 sm:size-6" />
-                  </Link>
-                </DockIcon>
-                <DockIcon>
-                  <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-gray-900 transition-all duration-500">
-                    <Mail className="size-5 sm:size-6" />
-                  </Link>
-                </DockIcon>
-              </Dock>
-            </TextEffect>
+                <WordPullUp
+                  words="PRASHANT CHOUDHARY"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600"
+                />
+              </TextEffect>
+
+              <TextEffect
+                preset="scale"
+                trigger={!isScrolled}
+                delay={0.5}
+                duration={0.8}
+                className="block w-full"
+                as="div"
+              >
+                <div className="text-lg sm:text-xl md:text-2xl text-gray-600 mb-8 flex items-center justify-center lg:justify-start gap-2 w-full">
+                  <span>I am an</span>
+                  <FlipWords
+                    words={roles}
+                    className="text-purple-600 dark:text-purple-400 font-semibold"
+                    duration={4000}
+                  />
+                </div>
+              </TextEffect>
+
+              <TextEffect
+                preset="fade"
+                trigger={!isScrolled}
+                delay={0.8}
+                duration={1}
+                as="div"
+              >
+                <Dock
+                  direction="middle"
+                  className="bg-white/5 border-gray-200/10"
+                  magnification={35}
+                  distance={80}
+                >
+                  <DockIcon>
+                    <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Linkedin className="size-5 sm:size-6" />
+                    </Link>
+                  </DockIcon>
+                  <DockIcon>
+                    <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Github className="size-5 sm:size-6" />
+                    </Link>
+                  </DockIcon>
+                  <DockIcon>
+                    <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Mail className="size-5 sm:size-6" />
+                    </Link>
+                  </DockIcon>
+                </Dock>
+              </TextEffect>
+            </div>
+
+            {/* Profile Card - Shown on all sizes, centered on mobile */}
+            <div className="flex-shrink-0 w-full md:w-auto flex flex-col items-center">
+              <GlassmorphismProfileCard
+                name="Prashant Choudhary"
+                role="AI Engineer & Full Stack Developer"
+                email="prashantc592114@gmail.com"
+                statusText="Available for work"
+                glowText="Building the Future with AI"
+              />
+
+              {/* Mobile: Social Icons below card */}
+              <div className="md:hidden mt-8">
+                <Dock
+                  direction="middle"
+                  className="bg-white/5 border-gray-200/10"
+                  magnification={35}
+                  distance={80}
+                >
+                  <DockIcon>
+                    <Link href="https://www.linkedin.com/in/mr-dark-debug" target="_blank" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Linkedin className="size-6" />
+                    </Link>
+                  </DockIcon>
+                  <DockIcon>
+                    <Link href="https://github.com/Mr-Dark-Debug" target="_blank" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Github className="size-6" />
+                    </Link>
+                  </DockIcon>
+                  <DockIcon>
+                    <Link href="mailto:prashantc592114@gmail.com" className="text-gray-600 hover:text-purple-500 transition-all duration-500">
+                      <Mail className="size-6" />
+                    </Link>
+                  </DockIcon>
+                </Dock>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -398,7 +456,11 @@ export default function HomePage() {
         </section>
 
         {/* Projects Section */}
-        <ProjectsSection />
+        <GitHubProjects
+          username="Mr-Dark-Debug"
+          organizations={["PocketLLM", "syntaxandsips", "codex-clone"]}
+          maxProjects={30}
+        />
 
         {/* Skills Section */}
         <section id="skills" className="w-full">
@@ -410,8 +472,37 @@ export default function HomePage() {
           <ContactForm />
         </section>
 
-        <ChatWidget />
-        <ChatSidebar />
+        {/* Footer */}
+        <Footer
+          brandName="Prashant Choudhary"
+          brandDescription="AI/ML Engineer & Full Stack Developer building innovative solutions with cutting-edge technology."
+          socialLinks={[
+            { icon: <Github className="w-6 h-6" />, href: "https://github.com/Mr-Dark-Debug", label: "GitHub" },
+            { icon: <Linkedin className="w-6 h-6" />, href: "https://www.linkedin.com/in/mr-dark-debug", label: "LinkedIn" },
+            { icon: <Mail className="w-6 h-6" />, href: "mailto:prashantc592114@gmail.com", label: "Email" }
+          ]}
+          navLinks={[
+            { label: "Home", href: "#home" },
+            { label: "Education", href: "#education" },
+            { label: "Experience", href: "#experience" },
+            { label: "Projects", href: "#projects" },
+            { label: "Skills", href: "#skills" },
+            { label: "Contact", href: "#contact" }
+          ]}
+          creatorName="Prashant Choudhary"
+          creatorUrl="https://github.com/Mr-Dark-Debug"
+          brandIcon={
+            <Image
+              src="/professional.png"
+              alt="Prashant"
+              width={56}
+              height={56}
+              className="rounded-xl object-cover"
+            />
+          }
+        />
+
+        <ChatSidebar isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
       </main>
     </>
   );
