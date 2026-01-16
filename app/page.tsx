@@ -266,15 +266,18 @@ export default function HomePage() {
         </button>
       )}
 
-      {/* Generative Answers Button - Hidden when chat or menu is open */}
+      {/* Ask A.I Button - Hidden when chat or menu is open */}
       {!isChatOpen && !isSidebarOpen && (
         <button
           type="button"
           onClick={openGenerativeAnswers}
-          className="fixed right-4 top-4 z-[60] flex items-center gap-2 rounded-full border border-purple-200 bg-purple-600 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur transition hover:shadow-xl hover:bg-purple-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
+          className="fixed right-4 top-4 z-[60] flex items-center gap-2 rounded-xl border border-purple-300/50 bg-gradient-to-r from-purple-600 to-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 backdrop-blur transition hover:shadow-xl hover:shadow-purple-500/30 hover:from-purple-700 hover:to-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
         >
-          <Sparkles className="size-4" />
-          Generative Answers
+          <svg width="20" height="20" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="48" height="48" rx="10" fill="rgba(255,255,255,0.15)" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M8 24C17.9412 24 24 17.9412 24 8C24 17.9412 30.0588 24 40 24C30.0588 24 24 30.0588 24 40C24 30.0588 17.9412 24 8 24Z" fill="white" />
+          </svg>
+          Ask A.I
         </button>
       )}
 

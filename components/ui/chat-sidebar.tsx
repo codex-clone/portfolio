@@ -46,7 +46,12 @@ const SparkleIcon = () => (
 );
 
 export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
-  const { messages, append, isLoading, input, setInput } = useChat() as any
+  const { messages, append, isLoading, setMessages } = useChat({
+    api: '/api/chat',
+    body: {
+      model: 'openai/gpt-oss-120b'
+    }
+  })
   const [inputValue, setInputValue] = React.useState('')
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
@@ -74,8 +79,6 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     await append({
       role: 'user',
       content: message,
-    }, {
-      body: { model: 'openai/gpt-oss-120b' }
     })
   }
 
@@ -84,8 +87,6 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     await append({
       role: 'user',
       content: suggestion,
-    }, {
-      body: { model: 'openai/gpt-oss-120b' }
     })
   }
 
