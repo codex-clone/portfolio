@@ -193,13 +193,15 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
                   )}
                   <div
                     className={cn(
-                      "max-w-[80%] rounded-2xl px-4 py-3 text-sm",
+                      "max-w-[80%] rounded-2xl px-4 py-3 text-sm overflow-hidden",
                       message.role === 'user'
                         ? "bg-purple-600 text-white rounded-br-md"
                         : "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-bl-md"
                     )}
                   >
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    <div className={cn("whitespace-pre-wrap break-words", message.role === 'user' ? "text-white" : "text-zinc-900 dark:text-white")}>
+                      {typeof message.content === 'string' ? message.content : ''}
+                    </div>
                   </div>
                 </div>
               ))}

@@ -1,4 +1,4 @@
-import { streamText } from 'ai';
+import { streamText, convertToCoreMessages } from 'ai';
 import { createGroq } from '@ai-sdk/groq';
 import { promises as fs } from 'fs';
 import path from 'path';
@@ -6,7 +6,7 @@ import path from 'path';
 export const runtime = 'nodejs';
 
 const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
+  apiKey: process.env.NEXT_PUBLIC_GROQ_API_KEY,
 });
 
 export async function POST(req: Request) {
@@ -17,10 +17,13 @@ export async function POST(req: Request) {
     const promptData = await fs.readFile(promptPath, 'utf8');
     const systemPrompt = JSON.parse(promptData);
 
+    // convertToCoreMessages is still the correct utility for now, ignoring deprecation warning unless build fails
+    const coreMessages = convertToCoreMessages(messages);
+
     const result = streamText({
-      model: groq(model || 'openai/gpt-oss-120b'),
+      model: groq(model || 'llama-3.3-70b-versatile'),
       system: systemPrompt.content,
-      messages,
+      messages: coreMessages,
       temperature: 0.7,
     });
 
