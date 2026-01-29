@@ -253,17 +253,16 @@ export const ClaudeChatInput: React.FC<ClaudeChatInputProps> = ({ onSendMessage 
     const [files, setFiles] = useState<AttachedFile[]>([]);
     const [pastedContent, setPastedContent] = useState<PastedItem[]>([]);
     const [isDragging, setIsDragging] = useState(false);
-    const [selectedModel, setSelectedModel] = useState("sonnet-4.5");
+    const [selectedModel, setSelectedModel] = useState("llama-3.3-70b-versatile");
     const [isThinkingEnabled, setIsThinkingEnabled] = useState(false);
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const models = [
-        { id: "opus-4.5", name: "Opus 4.5", description: "Most capable for complex work" },
-        { id: "sonnet-4.5", name: "Sonnet 4.5", description: "Best for everyday tasks" },
-        { id: "haiku-4.5", name: "Haiku 4.5", description: "Fastest for quick answers" },
-        { id: "llama-3.3-70b-versatile", name: "GPT OSS 1210B", description: "Most capable for complex work" },
+        { id: "llama-3.3-70b-versatile", name: "Llama 3.3 70B", description: "Fast & versatile (Default)" },
+        { id: "openai/gpt-oss-120b", name: "GPT OSS 120B", description: "High reasoning (Groq)", badge: "New" },
+        { id: "mixtral-8x7b-32768", name: "Mixtral 8x7B", description: "Balanced performance" },
     ];
 
     // Auto-resize textarea

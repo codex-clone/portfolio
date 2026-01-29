@@ -40,8 +40,8 @@ export default function HomePage() {
 
   const navItems = [
     { label: "Home", href: "#home" },
-    { label: "Education", href: "#education" },
     { label: "Experience", href: "#experience" },
+    { label: "Education", href: "#education" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
     { label: "Contact", href: "#contact" },
@@ -433,19 +433,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Education Section */}
-        <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
-          <Timeline
-            data={educationData}
-            title="Educational Journey"
-            description="My academic path in Artificial Intelligence and Data Science, showcasing my progression from school to university."
-            progressBarColors={{
-              from: "emerald-500",
-              via: "teal-500"
-            }}
-          />
-        </section>
-
         {/* Experience Section */}
         <section id="experience" className="py-16 sm:py-20 px-4 sm:px-6">
           <Timeline
@@ -455,6 +442,19 @@ export default function HomePage() {
             progressBarColors={{
               from: "indigo-500",
               via: "violet-500"
+            }}
+          />
+        </section>
+
+        {/* Education Section */}
+        <section id="education" className="py-16 sm:py-20 px-4 sm:px-6">
+          <Timeline
+            data={educationData}
+            title="Educational Journey"
+            description="My academic path in Artificial Intelligence and Data Science, showcasing my progression from school to university."
+            progressBarColors={{
+              from: "emerald-500",
+              via: "teal-500"
             }}
           />
         </section>
@@ -487,8 +487,8 @@ export default function HomePage() {
           ]}
           navLinks={[
             { label: "Home", href: "#home" },
-            { label: "Education", href: "#education" },
             { label: "Experience", href: "#experience" },
+            { label: "Education", href: "#education" },
             { label: "Projects", href: "#projects" },
             { label: "Skills", href: "#skills" }
           ]}

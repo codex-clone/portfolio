@@ -57,6 +57,7 @@ export function TechnologiesSection() {
                                     src={tech.icon}
                                     alt={tech.name}
                                     fill
+                                    sizes="(max-width: 640px) 48px, 64px"
                                     className="object-contain"
                                 />
                             </div>

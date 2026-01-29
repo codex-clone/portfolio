@@ -2,8 +2,10 @@
 
 import * as React from 'react'
 import { useChat } from '@ai-sdk/react'
-import { X, Sparkles, Send, Link2, Keyboard } from 'lucide-react'
+import { X, Sparkles, Send, Link2, Keyboard, Brain } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface ChatSidebarProps {
   isOpen: boolean;
@@ -45,8 +47,46 @@ const SparkleIcon = () => (
   </svg>
 );
 
+// Helper function to extract text content from message parts (AI SDK 5.0 format)
+function getMessageText(message: any): string {
+  // 1. Prioritize standard 'content' string if available
+  if (typeof message.content === 'string' && message.content.length > 0) {
+    return message.content;
+  }
+
+  // 2. AI SDK 5.0 uses 'parts' array
+  if (message.parts && Array.isArray(message.parts)) {
+    const textParts = message.parts
+      .filter((part: any) => part.type === 'text')
+      .map((part: any) => part.text)
+      .join('');
+
+    if (textParts) return textParts;
+  }
+
+  return '';
+}
+
+// Helper function to check if message has reasoning parts
+function hasReasoningParts(message: any): boolean {
+  if (!message.parts || !Array.isArray(message.parts)) return false;
+  return message.parts.some((part: any) => part.type === 'reasoning');
+}
+
+// Helper function to get reasoning text
+function getReasoningText(message: any): string {
+  if (!message.parts || !Array.isArray(message.parts)) return '';
+  return message.parts
+    .filter((part: any) => part.type === 'reasoning')
+    .map((part: any) => part.text || part.reasoning || '')
+    .join('');
+}
+
 export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
-  const { messages, sendMessage, status } = useChat()
+  // AI SDK 5.0 API
+  const { messages, sendMessage, status, error } = useChat({
+    id: 'portfolio-chat',
+  }) as any
 
   const isLoading = status === 'streaming' || status === 'submitted';
 
@@ -68,31 +108,59 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
     }
   }, [isOpen])
 
+  // Log real errors (not SDK finish event validation issues)
+  React.useEffect(() => {
+    if (error && !error.message?.includes('Type validation failed')) {
+      console.error('[Chat] Error:', error.message);
+    }
+  }, [error])
+
+  // Model selector state
+  const [selectedModel, setSelectedModel] = React.useState('llama-3.3-70b-versatile');
+  const [isModelMenuOpen, setIsModelMenuOpen] = React.useState(false);
+
+  const models = [
+    { id: 'llama-3.3-70b-versatile', name: 'Llama 3.3 70B' },
+    { id: 'openai/gpt-oss-120b', name: 'GPT OSS 120B' }
+  ];
+
+  const currentModelName = models.find(m => m.id === selectedModel)?.name || 'Llama 3.3 70B';
+
   const handleSend = async () => {
     if (!inputValue.trim() || isLoading) return
 
     const message = inputValue.trim()
     setInputValue('')
 
-    await sendMessage({ // Removed role: 'user' as it's not in the signature
-      text: message, // Changed content to text
-    }, {
-      body: {
-        model: 'openai/gpt-oss-120b'
-      }
-    })
+    try {
+      // AI SDK 5.0 send message format
+      await sendMessage({
+        role: 'user',
+        content: message
+      }, {
+        body: { model: selectedModel }
+      })
+    } catch (e) {
+      console.error('Failed to send message:', e)
+    }
   }
 
   const handleSuggestedClick = async (suggestion: string) => {
-    setInputValue('')
-    await sendMessage({
-      text: suggestion,
-    }, {
-      body: {
-        model: 'openai/gpt-oss-120b'
-      }
-    })
+    if (isLoading) return
+
+    try {
+      await sendMessage({
+        role: 'user',
+        content: suggestion
+      }, {
+        body: { model: selectedModel }
+      })
+    } catch (e) {
+      console.error('Failed to send suggestion:', e)
+    }
   }
+
+  // ... (handleKeyDown and handleInputChange stay mostly the same but ensure they are inside the component)
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -132,7 +200,7 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             <SparkleIcon />
             <div>
               <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Generative Answers</h2>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">Powered by GPT OSS 120B</p>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400">Powered by {currentModelName}</p>
             </div>
           </div>
           <button
@@ -168,7 +236,8 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
                   <button
                     key={index}
                     onClick={() => handleSuggestedClick(prompt.label)}
-                    className="px-3 py-1.5 text-xs rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 hover:text-purple-700 dark:hover:text-purple-300 transition-all"
+                    disabled={isLoading}
+                    className="px-3 py-1.5 text-xs rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-zinc-700 dark:text-zinc-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 hover:border-purple-300 dark:hover:border-purple-700 hover:text-purple-700 dark:hover:text-purple-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <span className="mr-1">{prompt.icon}</span>
                     {prompt.label}
@@ -178,45 +247,102 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
             </div>
           ) : (
             <div className="p-4 space-y-4">
-              {messages.map((message: any) => (
-                <div
-                  key={message.id}
-                  className={cn(
-                    "flex gap-3",
-                    message.role === 'user' ? 'justify-end' : 'justify-start'
-                  )}
-                >
-                  {message.role === 'assistant' && (
-                    <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
-                      <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                    </div>
-                  )}
+              {messages.map((message: any) => {
+                const messageText = getMessageText(message);
+                const isThinking = message.role === 'assistant' && !messageText && isLoading;
+                const showReasoning = hasReasoningParts(message);
+
+                return (
                   <div
+                    key={message.id}
                     className={cn(
-                      "max-w-[80%] rounded-2xl px-4 py-3 text-sm overflow-hidden",
-                      message.role === 'user'
-                        ? "bg-purple-600 text-white rounded-br-md"
-                        : "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-bl-md"
+                      "flex gap-3",
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
                     )}
                   >
-                    <div className={cn("whitespace-pre-wrap break-words", message.role === 'user' ? "text-white" : "text-zinc-900 dark:text-white")}>
-                      {typeof message.content === 'string' ? message.content : ''}
+                    {message.role === 'assistant' && (
+                      <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                        {isThinking ? (
+                          <Brain className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-pulse" />
+                        ) : (
+                          <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                        )}
+                      </div>
+                    )}
+                    <div
+                      className={cn(
+                        "max-w-[85%] rounded-2xl px-4 py-3 text-sm overflow-hidden",
+                        message.role === 'user'
+                          ? "bg-purple-600 text-white rounded-br-md"
+                          : "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white rounded-bl-md"
+                      )}
+                    >
+                      {/* Thinking animation */}
+                      {isThinking && (
+                        <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                          <Brain className="w-4 h-4 animate-pulse" />
+                          <span className="text-sm font-medium">Thinking...</span>
+                          <div className="flex gap-1">
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
+                            <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Reasoning indicator */}
+                      {showReasoning && (
+                        <div className="mb-2 pb-2 border-b border-purple-200 dark:border-purple-800">
+                          <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400 text-xs">
+                            <Brain className="w-3 h-3" />
+                            <span className="italic">Reasoning completed</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Message content with markdown */}
+                      {messageText && (
+                        <div className={cn(
+                          "prose prose-sm max-w-none",
+                          message.role === 'user'
+                            ? "prose-invert"
+                            : "dark:prose-invert prose-zinc",
+                          "prose-p:my-1 prose-headings:my-2 prose-ul:my-1 prose-ol:my-1 prose-li:my-0.5",
+                          "prose-code:bg-zinc-200 dark:prose-code:bg-zinc-700 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:text-xs",
+                          "prose-pre:bg-zinc-200 dark:prose-pre:bg-zinc-900 prose-pre:p-3 prose-pre:rounded-lg",
+                          "prose-a:text-purple-600 dark:prose-a:text-purple-400 prose-a:underline"
+                        )}>
+                          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            {messageText}
+                          </ReactMarkdown>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+              {/* Show loading indicator only when no assistant message exists yet */}
+              {isLoading && messages.length > 0 && messages[messages.length - 1]?.role === 'user' && (
+                <div className="flex gap-3 justify-start">
+                  <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
+                    <Brain className="w-4 h-4 text-purple-600 dark:text-purple-400 animate-pulse" />
+                  </div>
+                  <div className="bg-zinc-100 dark:bg-zinc-800 rounded-2xl rounded-bl-md px-4 py-3">
+                    <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
+                      <span className="text-sm font-medium">Thinking...</span>
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" />
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
+                        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-              {isLoading && (
-                <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center flex-shrink-0">
-                    <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div className="bg-zinc-100 dark:bg-zinc-800 rounded-2xl rounded-bl-md px-4 py-3">
-                    <div className="flex gap-1.5">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }} />
-                      <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }} />
-                    </div>
-                  </div>
+              )}
+              {/* Only show errors that aren't the known SDK finish event issue */}
+              {error && !error.message?.includes('Type validation failed') && !error.message?.includes('"type":"finish"') && (
+                <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-600 dark:text-red-400">
+                  Error: {error.message}
                 </div>
               )}
               <div ref={messagesEndRef} />
@@ -253,10 +379,36 @@ export function ChatSidebar({ isOpen, onClose }: ChatSidebarProps) {
 
           {/* Footer Controls */}
           <div className="flex items-center justify-between px-4 py-2 bg-zinc-50 dark:bg-zinc-800/50">
-            <div className="flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
-              <div className="px-2 py-1 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 font-medium">
-                GPT OSS 120B
-              </div>
+            <div className="relative">
+              <button
+                onClick={() => setIsModelMenuOpen(!isModelMenuOpen)}
+                className="flex items-center gap-1.5 px-2 py-1 rounded bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs font-medium hover:bg-purple-200 dark:hover:bg-purple-900/50 transition-colors"
+              >
+                {currentModelName}
+                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {isModelMenuOpen && (
+                <div className="absolute bottom-full left-0 mb-2 w-48 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-lg shadow-lg overflow-hidden z-50">
+                  {models.map((model) => (
+                    <button
+                      key={model.id}
+                      onClick={() => {
+                        setSelectedModel(model.id);
+                        setIsModelMenuOpen(false);
+                      }}
+                      className={cn(
+                        "w-full text-left px-3 py-2 text-xs hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors",
+                        selectedModel === model.id ? "text-purple-600 dark:text-purple-400 font-medium" : "text-zinc-700 dark:text-zinc-300"
+                      )}
+                    >
+                      {model.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="flex items-center gap-1">
