@@ -44,6 +44,7 @@ export default function HomePage() {
     { label: "Education", href: "#education" },
     { label: "Projects", href: "#projects" },
     { label: "Skills", href: "#skills" },
+    { label: "Blog", href: "/blog" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -490,7 +491,8 @@ export default function HomePage() {
             { label: "Experience", href: "#experience" },
             { label: "Education", href: "#education" },
             { label: "Projects", href: "#projects" },
-            { label: "Skills", href: "#skills" }
+            { label: "Skills", href: "#skills" },
+            { label: "Blog", href: "/blog" }
           ]}
           creatorName="Prashant Choudhary"
           creatorUrl="https://github.com/Mr-Dark-Debug"
