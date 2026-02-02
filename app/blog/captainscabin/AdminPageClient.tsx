@@ -17,7 +17,6 @@ import {
     ArrowLeft,
     FileText,
     AlertCircle,
-    Ship,
     Anchor,
     Compass,
     RefreshCw
@@ -113,8 +112,7 @@ export default function AdminPageClient({ initialPosts }: AdminPageClientProps) 
                             </Link>
                             <div className="h-6 w-px bg-zinc-200" />
                             <div className="flex items-center gap-2">
-                                <Ship className="w-6 h-6 text-purple-600" />
-                                <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-violet-600">
+                                <h1 className="text-2xl font-bold text-black">
                                     Captain&apos;s Cabin
                                 </h1>
                             </div>
@@ -290,7 +288,7 @@ export default function AdminPageClient({ initialPosts }: AdminPageClientProps) 
                                             <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-500">
                                                 <span className="flex items-center gap-1.5">
                                                     <Calendar className="w-4 h-4" />
-                                                    {new Date(post.date).toLocaleDateString()}
+                                                    {new Date(post.date).toLocaleDateString('en-US')}
                                                 </span>
                                                 <span className="flex items-center gap-1.5">
                                                     <Clock className="w-4 h-4" />

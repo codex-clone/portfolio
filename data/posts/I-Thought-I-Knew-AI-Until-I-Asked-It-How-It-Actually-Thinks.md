@@ -2,10 +2,9 @@
 title: "I Thought I Knew AI Until I Asked It How It Actually Thinks"
 date: "2026-02-01"
 author: "Prashant Choudhary"
-excerpt: "The uncomfortable truth about using AI for 12 months without understanding its cognitive process—and the exact framework that puts you in the top 0.01% of users."
+excerpt: "The uncomfortable truth about using AI for 12 months without understanding its cognitive process and the exact framework that puts you in the top 0.01% of users."
 tags: ["ai", "prompt-engineering", "llm", "productivity", "tutorial", "machine-learning"]
 published: true
-image: "/images/blog/ai-thinking-process.jpg"
 readingTime: 12
 ---
 
@@ -15,7 +14,7 @@ I've been using ChatGPT, Claude, and Gemini for over a year. I built side projec
 
 **Here's the embarrassing part:** I had no clue how they actually worked.
 
-I treated AI like a magic vending machine—put words in, get answers out. Don't ask questions about the mechanics. Just trust the black box.
+I treated AI like a magic vending machine put words in, get answers out. Don't ask questions about the mechanics. Just trust the black box.
 
 That changed when I came across a Reddit post that stopped me cold. The author described asking Gemini one simple question: *"Explain your thinking process to me."*
 
@@ -29,7 +28,7 @@ This article is your shortcut into that 0.01%.
 
 ## The "AI Illiterate" Reality Check
 
-Let's be honest—none of these companies teach you how their models work. There's no "Start Here" manual. No "About Me" section explaining the cognitive architecture. Just a blinking cursor and the pressure to figure it out yourself.
+Let's be honest none of these companies teach you how their models work. There's no "Start Here" manual. No "About Me" section explaining the cognitive architecture. Just a blinking cursor and the pressure to figure it out yourself.
 
 Most of us learn by trial and error. We craft prompts through vibes and superstition. We say "please" to the chatbot (don't lie, you've done it) and hope for the best.
 
@@ -49,13 +48,13 @@ When you hit enter on a prompt, the model runs through a specific pipeline. Know
 
 ### Stage 1: Tokenization (The Deconstruction)
 
-**What's happening:** Your text enters a digital shredder. The model doesn't see words—it sees tokens. These are fragments of words, subwords, or sometimes entire short words.
+**What's happening:** Your text enters a digital shredder. The model doesn't see words it sees tokens. These are fragments of words, subwords, or sometimes entire short words.
 
 The sentence "Scaling a startup is hard" might become: ["Sc", "aling", " a", " start", "up", " is", " hard", "."]
 
-Each token gets converted into a mathematical vector—a list of numbers that represent its position in a multi-dimensional space. This isn't poetic "AI imagination." This is linear algebra happening at nanosecond speed.
+Each token gets converted into a mathematical vector a list of numbers that represent its position in a multi-dimensional space. This isn't poetic "AI imagination." This is linear algebra happening at nanosecond speed.
 
-**The analogy:** Think of it like taking apart a Lego castle. You don't see the castle anymore—you see 10,000 individual plastic bricks, each with specific connection points and measurements. The model is going to weigh and measure each brick before deciding how to rebuild something from it.
+**The analogy:** Think of it like taking apart a Lego castle. You don't see the castle anymore you see 10,000 individual plastic bricks, each with specific connection points and measurements. The model is going to weigh and measure each brick before deciding how to rebuild something from it.
 
 **Why you should care:** Poorly structured prompts create token confusion. Long, meandering sentences dilute the signal. If your most important instruction gets buried in token #847, the model's attention has already drifted.
 
@@ -65,7 +64,7 @@ Each token gets converted into a mathematical vector—a list of numbers that re
 
 **What's happening:** This is the core innovation that made modern AI possible. The model calculates "attention scores" between every single token in your prompt. It asks, mathematically: "How much should token #3 influence token #27?"
 
-The algorithm uses three matrices—Query (Q), Key (K), and Value (V)—to map relationships:
+The algorithm uses three matrices Query (Q), Key (K), and Value (V) to map relationships:
 - **Query:** What is this token looking for?
 - **Key:** What does this token offer?
 - **Value:** What information does this token actually carry?
@@ -96,9 +95,9 @@ Your prompt creates a specific "shape" in this high-dimensional vector space. Th
 
 This is sophisticated statistical autocomplete, not reasoning. But the scale creates an emergent property that resembles cognition.
 
-Temperature controls randomness—low temperature (0.1-0.3) gives deterministic, focused outputs. High temperature (0.8-1.0) introduces creative noise.
+Temperature controls randomness low temperature (0.1-0.3) gives deterministic, focused outputs. High temperature (0.8-1.0) introduces creative noise.
 
-**The analogy:** It's like playing high-speed "complete the sentence" while also maintaining coherence across hundreds of future predictions. You're not just guessing the next word—you're guessing the next word in a way that makes the sentence after that, and the paragraph after that, statistically likely to be coherent.
+**The analogy:** It's like playing high-speed "complete the sentence" while also maintaining coherence across hundreds of future predictions. You're not just guessing the next word you're guessing the next word in a way that makes the sentence after that, and the paragraph after that, statistically likely to be coherent.
 
 **Why you should care:** This is why "thinking step by step" works. When you force the model to generate intermediate tokens (reasoning chains), those tokens act as anchors. The model has to commit to specific logic early, which constrains and improves the final output. Without these anchors, it can drift into contradictions.
 
@@ -106,15 +105,15 @@ Temperature controls randomness—low temperature (0.1-0.3) gives deterministic,
 
 ### Stage 5: Alignment & Safety (The Filter)
 
-**What's happening:** Before you see the text, it passes through behavioral conditioning layers. This isn't a simple keyword filter added at the end—it's integrated throughout generation via RLHF (Reinforcement Learning from Human Feedback) and Constitutional AI.
+**What's happening:** Before you see the text, it passes through behavioral conditioning layers. This isn't a simple keyword filter added at the end it's integrated throughout generation via RLHF (Reinforcement Learning from Human Feedback) and Constitutional AI.
 
 During training, human labelers ranked outputs. The model learned to predict these rankings. Now it generates text that would score highly on "helpfulness" and "harmlessness" metrics.
 
-Constitutional AI (pioneered by Anthropic) uses explicit principles—like "choose the response least likely to enable illegal activity"—to guide AI self-critique and revision before training.
+Constitutional AI (pioneered by Anthropic) uses explicit principles like "choose the response least likely to enable illegal activity" to guide AI self-critique and revision before training.
 
-**The analogy:** Imagine an editor standing over the writer's shoulder—not just proofreading at the end, but influencing word choices in real-time based on a rulebook of principles.
+**The analogy:** Imagine an editor standing over the writer's shoulder not just proofreading at the end, but influencing word choices in real-time based on a rulebook of principles.
 
-**Why you should care:** Alignment can over-filter useful outputs. Understanding that "I cannot help with that" is often a statistical safety prediction—not a deterministic rule—helps you rephrase requests. The model isn't refusing because it "knows" something is wrong; it's refusing because the safety weights assigned high probability to "rejection" for that prompt shape.
+**Why you should care:** Alignment can over-filter useful outputs. Understanding that "I cannot help with that" is often a statistical safety prediction not a deterministic rule helps you rephrase requests. The model isn't refusing because it "knows" something is wrong; it's refusing because the safety weights assigned high probability to "rejection" for that prompt shape.
 
 ---
 
@@ -122,7 +121,7 @@ Constitutional AI (pioneered by Anthropic) uses explicit principles—like "choo
 
 Knowing the mechanism is useless without application. Here's the chronological order for crafting prompts that hack each stage:
 
-### A — Anchor the Attention
+### A   Anchor the Attention
 
 **The rule:** Start with a clear role. The first 50 tokens buy disproportionate attention real estate because of how self-attention weights decay across long sequences.
 
@@ -142,7 +141,7 @@ The second version creates a precise vector space location. The first version dr
 
 ---
 
-### B — Define the Vector Early
+### B   Define the Vector Early
 
 **The rule:** Give context immediately. The more data in the first few "bricks" of the conversation, the more accurate the attention mechanism becomes.
 
@@ -164,7 +163,7 @@ This front-loading ensures the模型 navigates to the correct probability region
 
 ---
 
-### C — Force the Step-by-Step
+### C   Force the Step-by-Step
 
 **The rule:** Explicitly request intermediate reasoning. This generates tokens that serve as working memory.
 
@@ -212,7 +211,7 @@ The first output is a draft. The second refines. The third nails it.
 2. Identify specific drift: "You focused on enterprise sales, but my constraint is SMB self-serve"
 3. Restart with corrected prompt incorporating the fix
 
-Don't try to course-correct within the same conversation if the model has gone down the wrong path. Start fresh—the accumulated context is now polluted.
+Don't try to course-correct within the same conversation if the model has gone down the wrong path. Start fresh the accumulated context is now polluted.
 
 ---
 
@@ -263,7 +262,7 @@ your primary answer to my core intent with confidence scoring: [REQUEST]
 
 Understanding this process changes how you view AI outputs:
 
-**Hallucinations aren't bugs; they're features of the architecture.** When the model follows a probability scent that leads to a region where accurate data is sparse, it confidently generates plausible-sounding tokens anyway. It's doing exactly what it's designed to do—predict likely sequences.
+**Hallucinations aren't bugs; they're features of the architecture.** When the model follows a probability scent that leads to a region where accurate data is sparse, it confidently generates plausible-sounding tokens anyway. It's doing exactly what it's designed to do predict likely sequences.
 
 **Fluency ≠ Accuracy.** The model generates confident prose because confidence is correlated with fluency in its training data. It has no mechanism for "doubt" unless you explicitly prompt for uncertainty quantification.
 
@@ -275,7 +274,7 @@ Understanding this process changes how you view AI outputs:
 
 It's not about fancy prompting tricks. It's about **AI literacy**.
 
-Most users are functionally illiterate—treating these systems like magic oracles. The top performers understand they're navigating probability distributions through token manipulation.
+Most users are functionally illiterate treating these systems like magic oracles. The top performers understand they're navigating probability distributions through token manipulation.
 
 When you get garbage output, you don't blame the model. You diagnose:
 - Was my tokenization creating ambiguity?
@@ -299,7 +298,7 @@ When you get garbage output, you don't blame the model. You diagnose:
 
 I spent a year making decisions based on outputs I didn't understand, from a process I couldn't explain. That was dumb. But common.
 
-The AI companies won't teach you this—they want usage volume, not user sophistication. Understanding the mechanism is your competitive advantage. While others vibe-check their prompts, you'll engineer results.
+The AI companies won't teach you this they want usage volume, not user sophistication. Understanding the mechanism is your competitive advantage. While others vibe-check their prompts, you'll engineer results.
 
 Knowledge isn't just power here. It's the difference between being the person who asks AI for answers, and the person who knows how to make AI give the right answers.
 

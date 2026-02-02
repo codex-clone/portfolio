@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Search, ArrowLeft, Compass, Anchor, Rocket, Ship, MapPin, Calendar, Clock, ArrowRight, X, LayoutGrid, List } from "lucide-react";
+import { Search, ArrowLeft, Compass, Anchor, Rocket, MapPin, Calendar, Clock, ArrowRight, X, LayoutGrid, List } from "lucide-react";
 import Image from "next/image";
 import { AnimatedGridPattern } from "@/components/ui/animated-grid-pattern";
 import { cn } from "@/lib/utils";
@@ -68,8 +68,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                     <div className="flex items-center justify-between h-16">
                         {/* Left: Branding */}
                         <div className="flex items-center gap-2">
-                            <Ship className="w-5 h-5 text-purple-600" />
-                            <span className="font-bold text-lg bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-violet-600">
+                            <span className="font-bold text-lg text-black">
                                 Captain&apos;s Log
                             </span>
                         </div>
@@ -170,41 +169,7 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                 </AnimatePresence>
             </nav>
 
-            {/* Hero Section - Compact with search */}
-            <section className="relative py-12 sm:py-16 border-b border-zinc-200/50 z-10">
-                {/* Grid pattern moved to global background */}
 
-                <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                    >
-                        <div className="flex items-center justify-center gap-3 mb-4">
-                            <Rocket className="w-8 h-8 text-purple-600" />
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-violet-600 to-purple-600">
-                                    Captain&apos;s Log
-                                </span>
-                            </h1>
-                        </div>
-                        <p className="text-zinc-600 max-w-xl mx-auto mb-8">
-                            🚀 Adventures in code, AI explorations, and random thoughts from the command deck.
-                            Buckle up, it&apos;s gonna be a wild ride!
-                        </p>
-                    </motion.div>
-
-                    {/* Search & Filters - Clean and accessible */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="space-y-4"
-                    >
-                        {/* Search moved to navbar */}
-                    </motion.div>
-                </div>
-            </section>
 
 
 
