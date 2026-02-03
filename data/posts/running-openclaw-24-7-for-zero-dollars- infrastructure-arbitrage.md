@@ -1,3 +1,4 @@
+---
 title: "Running OpenClaw 24/7 for Literally $0: The Infrastructure Arbitrage Nobody's Talking About"
 date: "2026-02-01"
 author: "Prashant Choudhary"
@@ -5,7 +6,8 @@ excerpt: "While everyone's burning hundreds of dollars weekly on AI tokens, one 
 tags: ["ai", "cloud-infrastructure", "openclaw", "cost-optimization", "devops", "gcp"]
 published: true
 readingTime: 12
-Running OpenClaw 24/7 for Literally $0: The Infrastructure Arbitrage Nobody's Talking About
+
+# Running OpenClaw 24/7 for Literally $0: The Infrastructure Arbitrage Nobody's Talking About
 
 While the AI world is losing its mind over OpenClaw (formerly Clawdbot, then Moltbot), there's a more fascinating story happening beneath the surface. Most people are spending $15-25 per day running their AI assistants. Meanwhile, developers like Aditya Singh have figured out how to run the exact same setup for literally zero dollars.
 
