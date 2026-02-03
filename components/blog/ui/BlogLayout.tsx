@@ -25,7 +25,7 @@ export function BlogLayout({
             <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-zinc-200/50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4 min-w-0">
                             {showBackButton && (
                                 <motion.div
                                     initial={{ opacity: 0, x: -10 }}
@@ -34,10 +34,11 @@ export function BlogLayout({
                                 >
                                     <Link
                                         href="/blog"
-                                        className="flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-purple-600 transition-colors"
+                                        className="flex items-center gap-2 text-sm font-medium text-zinc-600 hover:text-purple-600 transition-colors flex-shrink-0"
                                     >
                                         <ArrowLeft className="w-4 h-4" />
-                                        Back to Blog
+                                        <span className="hidden sm:inline">Back to Blog</span>
+                                        <span className="sm:hidden">Back</span>
                                     </Link>
                                 </motion.div>
                             )}
@@ -46,7 +47,7 @@ export function BlogLayout({
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ duration: 0.3, delay: 0.1 }}
-                                    className="text-lg font-semibold text-zinc-900 truncate max-w-md"
+                                    className="text-lg font-semibold text-zinc-900 truncate max-w-[150px] sm:max-w-[200px] lg:max-w-md"
                                 >
                                     {title}
                                 </motion.h1>

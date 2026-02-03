@@ -84,7 +84,7 @@ export default function BlogPostClient({
                             <SaveBookmarkButton slug={post.slug} size="sm" />
                             <Link
                                 href="/"
-                                className="p-2 text-zinc-600 hover:text-purple-600 transition-colors"
+                                className="p-2 text-zinc-600 hover:text-purple-600 transition-colors flex-shrink-0"
                             >
                                 <Home className="w-5 h-5" />
                             </Link>
@@ -121,18 +121,20 @@ export default function BlogPostClient({
                         </h1>
 
                         {/* Meta info */}
-                        <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-zinc-500 mb-8">
+                        <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-2 sm:gap-6 text-sm text-zinc-500 mb-8">
                             <span className="flex items-center gap-2">
                                 <User className="w-4 h-4" />
-                                {post.author}
+                                <span className="truncate max-w-[120px] sm:max-w-none">{post.author}</span>
                             </span>
                             <span className="flex items-center gap-2">
                                 <Calendar className="w-4 h-4" />
-                                {new Date(post.date).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
+                                <span className="truncate max-w-[150px] sm:max-w-none">
+                                    {new Date(post.date).toLocaleDateString('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: 'numeric'
+                                    })}
+                                </span>
                             </span>
                             <span className="flex items-center gap-2">
                                 <Clock className="w-4 h-4" />

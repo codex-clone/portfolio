@@ -30,7 +30,7 @@ interface AdminPageClientProps {
 
 export default function AdminPageClient({ initialPosts }: AdminPageClientProps) {
     const router = useRouter();
-    const [posts, setPosts] = useState(initialPosts);
+    const [posts, setPosts] = useState<BlogPostMeta[]>(initialPosts || []);
     const [searchQuery, setSearchQuery] = useState("");
     const [filterStatus, setFilterStatus] = useState<"all" | "published" | "draft" | "scheduled">("all");
     const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
@@ -62,7 +62,9 @@ export default function AdminPageClient({ initialPosts }: AdminPageClientProps) 
             const res = await fetch('/api/blog/captainscabin/posts');
             if (res.ok) {
                 const data = await res.json();
-                setPosts(data);
+                setPosts(Array.isArray(data) ? data : []);
+            } else {
+                console.error('Failed to fetch posts:', res.status, res.statusText);
             }
         } catch (error) {
             console.error('Failed to refresh posts:', error);
@@ -285,10 +287,12 @@ export default function AdminPageClient({ initialPosts }: AdminPageClientProps) 
                                                 </span>
                                             </div>
 
-                                            <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-500">
+                                            <div className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-2 sm:gap-4 text-sm text-zinc-500">
                                                 <span className="flex items-center gap-1.5">
                                                     <Calendar className="w-4 h-4" />
-                                                    {new Date(post.date).toLocaleDateString('en-US')}
+                                                    <span className="truncate max-w-[100px]">
+                                                        {new Date(post.date).toLocaleDateString('en-US')}
+                                                    </span>
                                                 </span>
                                                 <span className="flex items-center gap-1.5">
                                                     <Clock className="w-4 h-4" />
@@ -296,9 +300,9 @@ export default function AdminPageClient({ initialPosts }: AdminPageClientProps) 
                                                 </span>
                                                 <div className="flex items-center gap-1.5">
                                                     <Tag className="w-4 h-4" />
-                                                    <div className="flex gap-1">
+                                                    <div className="flex gap-1 flex-wrap">
                                                         {post.tags.slice(0, 3).map((tag) => (
-                                                            <span key={tag} className="px-2 py-0.5 bg-zinc-100 rounded text-xs text-zinc-600">
+                                                            <span key={tag} className="px-2 py-0.5 bg-zinc-100 rounded text-xs text-zinc-600 whitespace-nowrap">
                                                                 {tag}
                                                             </span>
                                                         ))}

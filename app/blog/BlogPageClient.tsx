@@ -314,10 +314,12 @@ export default function BlogPageClient({ posts, tags }: BlogPageClientProps) {
                                         </p>
 
                                         {/* Meta */}
-                                        <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-zinc-500 mt-auto pt-4 border-t border-zinc-100">
+                                                        <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-zinc-500 mt-auto pt-4 border-t border-zinc-100">
                                             <span className="flex items-center gap-1.5">
                                                 <Calendar className="w-3.5 h-3.5" />
-                                                {new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                                <span className="truncate max-w-[80px] sm:max-w-none">
+                                                    {new Date(post.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                                </span>
                                             </span>
                                             <span className="flex items-center gap-1.5">
                                                 <Clock className="w-3.5 h-3.5" />
